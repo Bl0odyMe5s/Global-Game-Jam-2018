@@ -24,7 +24,7 @@ public class PlayerMechanics : MonoBehaviour {
         position += velocity;
         transform.rotation = Quaternion.Euler(new Vector3(0, position, 0));
         velocity *= dampening;
-        if (velocity < 0.001)
+        if (Mathf.Abs(velocity) < 0.001)
         {
             velocity = 0;
         }
