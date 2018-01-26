@@ -10,6 +10,4 @@ public class Ball : MonoBehaviour {
 
 		GetComponent<Rigidbody> ().AddForce (Vector2.down * 150f, ForceMode.Impulse);
 	}
-	
-
 }
