@@ -140,6 +140,9 @@ public class PlayerMechanics : MonoBehaviour {
             
         }
         playerState = PlayerStates.Standard;
+
+        var soundWave = Instantiate(Manager.manager.SoundWave);
+        soundWave.transform.position = player.transform.position;
     }
 
 
