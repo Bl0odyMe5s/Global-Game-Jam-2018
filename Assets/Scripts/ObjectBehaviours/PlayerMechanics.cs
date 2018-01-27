@@ -27,6 +27,11 @@ public class PlayerMechanics : MonoBehaviour {
         camera = player.transform.GetChild(0).transform.GetChild(0).GetComponent<Camera>();
     }
 
+	public float minParticleSpeed;
+	public float maxParticleSpeed;
+
+	public ParticleSystem particlesRight, particlesLeft;
+
 	// Use this for initialization
 	public void CustomStart () {
         player.GetComponent<MeshRenderer>().material = materialList[id];
@@ -62,6 +67,24 @@ public class PlayerMechanics : MonoBehaviour {
         {
             velocity = 0;
         }
+
+		/*
+		// Play particles
+		if (velocity > 0.2f) {
+			particlesLeft.Stop ();
+			particlesRight.Play ();
+			particlesRight.startSpeed = Random.Range(minParticleSpeed, Mathf.Pow(velocity, 2f) * maxParticleSpeed);
+		} else if (velocity < -0.2f) {
+			particlesRight.Stop ();
+			particlesLeft.Play ();
+			particlesLeft.startSpeed = Random.Range(minParticleSpeed, Mathf.Pow(velocity, 2f) * maxParticleSpeed);
+		} else {
+			particlesLeft.startSpeed = 0;
+			particlesRight.startSpeed = 0;
+			particlesLeft.Stop ();
+			particlesRight.Stop ();
+		}
+		*/
 
     }
 

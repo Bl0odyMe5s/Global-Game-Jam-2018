@@ -9,7 +9,7 @@ public class Manager : MonoBehaviour
     [SerializeField] private GameObject player;
 
     private GameStates state;
-    private List<Vector3> spawnPoints;
+    public List<Vector3> spawnPoints;
     public static Manager manager;
     public KeyCode[] keyCodes;
     public List<GameObject> PlayerObjects { get; set; }
@@ -51,6 +51,7 @@ public class Manager : MonoBehaviour
         spawnPoints.Add(GameObject.Find("Ball Spawn 1").transform.position);
         spawnPoints.Add(GameObject.Find("Ball Spawn 2").transform.position);
         Ball.transform.position = spawnPoints[random];
+        BallScript.PlayerY = player.transform.position.y;
         state = GameStates.Playing;
     }
 

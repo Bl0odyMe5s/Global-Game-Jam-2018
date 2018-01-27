@@ -25,17 +25,19 @@ public class Ball : MonoBehaviour {
 	void Start () {
 		Physics.gravity = Vector3.down * gravity;
 
-		//Get player Y position from game manager
-		Transform player = GameObject.Find ("player").transform;
-		playerY = player.position.y;
-
-		GetComponent<Rigidbody> ().AddForce (Vector2.down * startForce, ForceMode.Impulse);
+		GetComponent<Rigidbody> ().AddForce (Vector3.down * startForce, ForceMode.Acceleration);
 	}
     
 	
     public Rigidbody RigidBody
     {
         get { return rigidBody; }
+    }
+
+    public float PlayerY
+    {
+        get { return playerY; }
+        set { playerY = value; }
     }
 
 	private void FixedUpdate()
