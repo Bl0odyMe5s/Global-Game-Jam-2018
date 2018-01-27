@@ -9,24 +9,112 @@ ModelImporter:
     100002: Cube
     100004: map-base
     100006: Cube_002
+    100008: Sphere
+    100010: Sphere_001
+    100012: Part
+    100014: Part10
+    100016: Part11
+    100018: Part2
+    100020: Part23
+    100022: Part3
+    100024: Part4
+    100026: Part5
+    100028: Part6
+    100030: Part7
+    100032: Part8
+    100034: Part9
+    100036: Sphere_012
+    100038: Part13
+    100040: Sphere12
+    100042: Part12
     400000: //RootNode
     400002: Cube
     400004: map-base
     400006: Cube_002
+    400008: Sphere
+    400010: Sphere_001
+    400012: Part
+    400014: Part10
+    400016: Part11
+    400018: Part2
+    400020: Part23
+    400022: Part3
+    400024: Part4
+    400026: Part5
+    400028: Part6
+    400030: Part7
+    400032: Part8
+    400034: Part9
+    400036: Sphere_012
+    400038: Part13
+    400040: Sphere12
+    400042: Part12
     2100000: unnamed
     2100002: map-base
     2300000: //RootNode
     2300002: Cube
     2300004: map-base
     2300006: Cube_002
+    2300008: Sphere
+    2300010: Sphere_001
+    2300012: Part
+    2300014: Part10
+    2300016: Part11
+    2300018: Part2
+    2300020: Part23
+    2300022: Part3
+    2300024: Part4
+    2300026: Part5
+    2300028: Part6
+    2300030: Part7
+    2300032: Part8
+    2300034: Part9
+    2300036: Sphere_012
+    2300038: Part13
+    2300040: Sphere12
+    2300042: Part12
     3300000: //RootNode
     3300002: Cube
     3300004: map-base
     3300006: Cube_002
+    3300008: Sphere
+    3300010: Sphere_001
+    3300012: Part
+    3300014: Part10
+    3300016: Part11
+    3300018: Part2
+    3300020: Part23
+    3300022: Part3
+    3300024: Part4
+    3300026: Part5
+    3300028: Part6
+    3300030: Part7
+    3300032: Part8
+    3300034: Part9
+    3300036: Sphere_012
+    3300038: Part13
+    3300040: Sphere12
+    3300042: Part12
     4300000: Sphere_001
     4300002: map
     4300004: map-base
     4300006: Sphere
+    4300008: Sphere_012
+    4300010: Part23
+    4300012: Part11
+    4300014: Part10
+    4300016: Part9
+    4300018: Part8
+    4300020: Part7
+    4300022: Part6
+    4300024: Part5
+    4300026: Part4
+    4300028: Part3
+    4300030: Part2
+    4300032: Part
+    4300034: Sphere12
+    4300036: Part13
+    4300038: Part12
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}
