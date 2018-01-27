@@ -70,7 +70,6 @@ public class PlayerMechanics : MonoBehaviour {
             velocity = 0;
         }
 
-		/*
 		// Play particles
 		if (velocity > 0.2f) {
 			particlesLeft.Stop ();
@@ -86,7 +85,6 @@ public class PlayerMechanics : MonoBehaviour {
 			particlesLeft.Stop ();
 			particlesRight.Stop ();
 		}
-		*/
 
     }
 
