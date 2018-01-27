@@ -18,6 +18,11 @@ public class PlayerMechanics : MonoBehaviour {
     public KeyCode leftKey, rightKey, actionKey;
     public float velocity, accelerationRate, dampening;
 
+	public float minParticleSpeed;
+	public float maxParticleSpeed;
+
+	public ParticleSystem particlesRight, particlesLeft;
+
 	// Use this for initialization
 	void Start () {
         //player.transform.position = new Vector3(radius * Mathf.Cos(Mathf.Deg2Rad * position), height, radius * Mathf.Sin(Mathf.Deg2Rad * position));
@@ -37,6 +42,24 @@ public class PlayerMechanics : MonoBehaviour {
         {
             velocity = 0;
         }
+
+		/*
+		// Play particles
+		if (velocity > 0.2f) {
+			particlesLeft.Stop ();
+			particlesRight.Play ();
+			particlesRight.startSpeed = Random.Range(minParticleSpeed, Mathf.Pow(velocity, 2f) * maxParticleSpeed);
+		} else if (velocity < -0.2f) {
+			particlesRight.Stop ();
+			particlesLeft.Play ();
+			particlesLeft.startSpeed = Random.Range(minParticleSpeed, Mathf.Pow(velocity, 2f) * maxParticleSpeed);
+		} else {
+			particlesLeft.startSpeed = 0;
+			particlesRight.startSpeed = 0;
+			particlesLeft.Stop ();
+			particlesRight.Stop ();
+		}
+		*/
 
     }
 
