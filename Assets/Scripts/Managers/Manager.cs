@@ -10,6 +10,8 @@ public class Manager : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject soundWave;
 
+    [SerializeField] int resetDelay;
+
     private GameStates state;
     public List<Vector3> spawnPoints;
     public static Manager manager;
@@ -17,12 +19,16 @@ public class Manager : MonoBehaviour
     public List<GameObject> PlayerObjects { get; set; }
     public GameObject Ball { get; set; }
     public Ball BallScript { get; set; }
+
+    [SerializeField]
+    private List<int> playerScores;
 	
 	private void Awake () {
 		DontDestroyOnLoad(gameObject);
 
         manager = this;
 		PlayerObjects = new List<GameObject>();
+        playerScores = new List<int> { 0,0 };
         spawnPoints = new List<Vector3>();
 		
 		InitializeGame();
@@ -38,15 +44,19 @@ public class Manager : MonoBehaviour
     private IEnumerator PopulateLevel1()
     {
         yield return new WaitUntil(() => SceneManager.GetActiveScene().name == "GameScene");
+
+        if (PlayerObjects.Count > 0)
+        {
+            PlayerObjects = new List<GameObject>();
+            spawnPoints = new List<Vector3>();
+        }
+
         GameObject player1 = GameObject.Instantiate(player);
-        player1.GetComponent<PlayerMechanics>().Color = Color.red;
         player1.GetComponent<PlayerMechanics>().camera.GetComponent<CameraFollower>().enabled = false;
         GameObject.Find("CameraRailPlayer1").GetComponent<CameraRailScript>().cam = player1.GetComponent<PlayerMechanics>().camera.GetComponent<Camera>();
         GameObject player2 = GameObject.Instantiate(player);
-        player2.GetComponent<PlayerMechanics>().Color = Color.blue;
         player2.GetComponent<PlayerMechanics>().camera.GetComponent<CameraFollower>().enabled = false;
         GameObject.Find("CameraRailPlayer2").GetComponent<CameraRailScript>().cam = player2.GetComponent<PlayerMechanics>().camera.GetComponent<Camera>();
-
         PlayerObjects.Add(player1);
         PlayerObjects.Add(player2);
 
@@ -67,7 +77,7 @@ public class Manager : MonoBehaviour
 
     public IEnumerator StartLevel1()
     {
-        GameObject.Find("CameraRailPlayer2").GetComponent<CameraRailScript>().enabled = false;
+        GameObject.Find("CameraRailPlayer1").GetComponent<CameraRailScript>().enabled = false;
         GameObject.Find("CameraRailPlayer2").GetComponent<CameraRailScript>().enabled = false;
 
         yield return new WaitForSeconds(1);
@@ -77,6 +87,7 @@ public class Manager : MonoBehaviour
         yield return new WaitForSeconds(1);
         state = GameStates.Playing;
         Ball.GetComponent<Rigidbody>().isKinematic = false;
+        Ball.GetComponent<Rigidbody>().AddForce(Vector3.down * 3f, ForceMode.Impulse);
     }
 
     private void InitializeGame()
@@ -84,6 +95,20 @@ public class Manager : MonoBehaviour
 		state = GameStates.Playing;
 		SceneManager.LoadScene("MenuScene");
 	}
+
+    public List<int> PlayerScores
+    {
+        get { return playerScores; }
+        set
+        {
+            playerScores = value;
+        }
+    }
+
+    public int ResetDelay
+    {
+        get { return resetDelay; }
+    }
 
 	public GameStates State
 	{

@@ -4,5 +4,6 @@
     Playing,
     Slowed,
     SpedUp,
-    Introduction
+    Introduction,
+    Finishing
 }
