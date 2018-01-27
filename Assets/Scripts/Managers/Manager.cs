@@ -114,7 +114,6 @@ public class Manager : MonoBehaviour
         Ball.GetComponent<Rigidbody>().AddForce(Vector3.down * 3f, ForceMode.Impulse);
     }
 
-
     private void InitializeGame()
 	{
 		state = GameStates.Playing;

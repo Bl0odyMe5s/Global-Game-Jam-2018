@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.43873546, g: 0.4868914, b: 0.5671573, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -147,6 +147,7 @@ MonoBehaviour:
   spawnPoints: []
   keyCodes: 610000006400000077000000140100001301000012010000
   playerScores: 
+  intro: {fileID: 8300000, guid: be179765b2349a8488702b882445bf9b, type: 3}
 --- !u!4 &339889520
 Transform:
   m_ObjectHideFlags: 0
