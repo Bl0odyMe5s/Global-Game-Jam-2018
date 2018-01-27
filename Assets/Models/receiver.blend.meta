@@ -1,33 +1,24 @@
 fileFormatVersion: 2
-guid: b462cf6e4c59acc48ae6c1e2eca2b516
-timeCreated: 1516996250
+guid: 5e4a0523fc8fb3941ab51a4534415dcb
+timeCreated: 1517007876
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Cube
-    100004: map-base
-    100006: Cube_002
-    400000: //RootNode
-    400002: Cube
-    400004: map-base
-    400006: Cube_002
+    100000: Cube
+    100002: //RootNode
+    100004: Sphere
+    400000: Cube
+    400002: //RootNode
+    400004: Sphere
     2100000: unnamed
-    2100002: map-base
-    2300000: //RootNode
-    2300002: Cube
-    2300004: map-base
-    2300006: Cube_002
-    3300000: //RootNode
-    3300002: Cube
-    3300004: map-base
-    3300006: Cube_002
-    4300000: Sphere_001
-    4300002: map
-    4300004: map-base
-    4300006: Cube
-    4300008: Cube_002
+    2100002: Material
+    2300000: Cube
+    2300002: Sphere
+    3300000: Cube
+    3300002: Sphere
+    4300000: Sphere
+    4300002: Cube
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}
@@ -65,8 +56,8 @@ ModelImporter:
     addColliders: 0
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 0
-    importLights: 0
+    importCameras: 1
+    importLights: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -79,7 +70,7 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 0
+    useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
