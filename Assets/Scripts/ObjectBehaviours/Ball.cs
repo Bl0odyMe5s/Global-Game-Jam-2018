@@ -90,7 +90,7 @@ public class Ball : MonoBehaviour {
     {
         yield return new WaitForSeconds(Manager.manager.ResetDelay);
 
-        Manager.manager.SpawnLevel1();
+        Manager.manager.RestartLevel1();
     }
 
     private void OnCollisionEnter(Collision collision)
