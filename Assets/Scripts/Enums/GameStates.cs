@@ -3,5 +3,6 @@
     Paused,
     Playing,
     Slowed,
-    SpedUp
+    SpedUp,
+    Introduction
 }
