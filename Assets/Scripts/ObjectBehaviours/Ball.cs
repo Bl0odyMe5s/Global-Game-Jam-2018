@@ -18,7 +18,7 @@ public class Ball : MonoBehaviour {
 		Transform player = GameObject.Find ("player").transform;
 		playerY = player.position.y;
 
-		GetComponent<Rigidbody> ().AddForce (Vector2.down * startForce, ForceMode.Impulse);
+		GetComponent<Rigidbody> ().AddForce (Vector2.down * startForce, ForceMode.Acceleration);
 	}
 
 	private void FixedUpdate()

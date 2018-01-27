@@ -24,9 +24,10 @@ GameObject:
   - component: {fileID: 95142943182611918}
   - component: {fileID: 54818240876799838}
   - component: {fileID: 135647225859177302}
+  - component: {fileID: 114117681105760628}
   m_Layer: 0
   m_Name: Ball
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,8 +39,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1906548987442092}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 0, z: -0.861}
-  m_LocalScale: {x: 0.025611367, y: 0.02561138, z: 0.02561138}
+  m_LocalPosition: {x: 7.48, y: -2.81, z: -0.786}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -93,9 +94,9 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1906548987442092}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 100
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -118,6 +119,20 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114117681105760628
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1906548987442092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0e73f4ab1d2ee74f9edf11be906ca55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: 0.4
+  startForce: 2000
+  playerYMargin: 2
 --- !u!135 &135647225859177302
 SphereCollider:
   m_ObjectHideFlags: 1
