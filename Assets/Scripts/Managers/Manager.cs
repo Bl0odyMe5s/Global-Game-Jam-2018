@@ -7,9 +7,13 @@ public class Manager : MonoBehaviour
 	private List<PlayerObject> playerObjects;
 	private GameObject _ball;
 	private GameStates state;
+    private Ball ball;
+    public static Manager manager;
 	
 	private void Awake () {
 		DontDestroyOnLoad(gameObject);
+
+        manager = this;
 		
 		PlayerObjects = new List<PlayerObject>();
 		
@@ -19,7 +23,7 @@ public class Manager : MonoBehaviour
 	private void InitializeGame()
 	{
 		state = GameStates.Playing;
-		SceneManager.LoadScene("GameScene");
+		SceneManager.LoadScene("MenuScene");
 	}
 
 	public List<PlayerObject> PlayerObjects
@@ -39,4 +43,9 @@ public class Manager : MonoBehaviour
 		get { return _ball; }
 		set { _ball = value; }
 	}
+
+    public Ball BallComponent
+    {
+        get { return _ball.GetComponent<Ball>(); }
+    }
 }

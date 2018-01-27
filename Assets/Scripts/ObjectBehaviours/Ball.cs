@@ -10,7 +10,16 @@ public class Ball : MonoBehaviour {
 
 	private float playerY = 0;
 
+    private Rigidbody rigidBody;
+
 	// Use this for initialization
+    void Awake()
+    {
+        Manager.manager.Ball = gameObject;
+        rigidBody = GetComponent<Rigidbody>();
+    }
+
+
 	void Start () {
 		Physics.gravity = Vector3.down * gravity;
 
@@ -20,6 +29,12 @@ public class Ball : MonoBehaviour {
 
 		GetComponent<Rigidbody> ().AddForce (Vector2.down * startForce, ForceMode.Impulse);
 	}
+    
+	
+    public Rigidbody RigidBody
+    {
+        get { return rigidBody; }
+    }
 
 	private void FixedUpdate()
 	{

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.45077318, g: 0.4989335, b: 0.5652562, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -162,8 +162,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b462cf6e4c59acc48ae6c1e2eca2b516, type: 3}
       propertyPath: m_LocalScale.z
-      value: 10
+      value: 6.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: b462cf6e4c59acc48ae6c1e2eca2b516, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6758f3a5323c0514f89f190ed0066fd7, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b462cf6e4c59acc48ae6c1e2eca2b516, type: 3}
   m_IsPrefabParent: 0
@@ -229,7 +233,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1270902867}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.30694985, y: -0.35699686, z: -0.18803559, w: 0.86196154}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -322,6 +326,15 @@ Prefab:
       propertyPath: actionKey
       value: 274
       objectReference: {fileID: 0}
+    - target: {fileID: 4633499191953454, guid: e316f07be85bb984298045e200d1697c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757454458596778, guid: e316f07be85bb984298045e200d1697c,
+        type: 2}
+      propertyPath: height
+      value: -2.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e316f07be85bb984298045e200d1697c, type: 2}
   m_IsPrefabParent: 0
@@ -387,6 +400,15 @@ Prefab:
         type: 2}
       propertyPath: field of view
       value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633499191953454, guid: e316f07be85bb984298045e200d1697c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757454458596778, guid: e316f07be85bb984298045e200d1697c,
+        type: 2}
+      propertyPath: height
+      value: -2.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e316f07be85bb984298045e200d1697c, type: 2}
