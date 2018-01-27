@@ -5,9 +5,13 @@ public class Manager : MonoBehaviour
 {
 	private List<PlayerObject> playerObjects;
 	private GameStates state;
+    private Ball ball;
+    public static Manager manager;
 	
 	void Awake () {
 		DontDestroyOnLoad(gameObject);
+
+        manager = this;
 		
 		InitializeGame();
 	}
@@ -29,4 +33,10 @@ public class Manager : MonoBehaviour
 		get { return state; }
 		set { state = value; }
 	}
+
+    public Ball Ball
+    {
+        get { return ball; }
+        set { ball = value; }
+    }
 }

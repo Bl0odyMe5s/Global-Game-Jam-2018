@@ -4,12 +4,26 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		Physics.gravity = Vector3.down * 0.4f;
+    private Rigidbody rigidBody;
 
-		GetComponent<Rigidbody> ().AddForce (Vector2.down * 150f, ForceMode.Impulse);
+	// Use this for initialization
+    void Awake()
+    {
+        Manager.manager.Ball = this;
+        rigidBody = GetComponent<Rigidbody>();
+    }
+
+
+	void Start () {
+		Physics.gravity = Vector3.down * 4.0f;
+        rigidBody.AddForce(Vector3.down * /*top*/2000, ForceMode.Impulse);
+
 	}
+    
 	
+    public Rigidbody RigidBody
+    {
+        get { return rigidBody; }
+    }
 
 }
