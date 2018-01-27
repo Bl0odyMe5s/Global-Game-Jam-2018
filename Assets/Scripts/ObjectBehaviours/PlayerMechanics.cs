@@ -7,6 +7,12 @@ using UnityEngine;
 /// </summary>
 public class PlayerMechanics : MonoBehaviour {
 
+    public const int PLAYER_ONE = 0;
+    public const int PLAYER_TWO = 1;
+
+    private int playerType;
+
+    private const float CHARGE_RATE = 30, MAX_CHARGE = 120, FIRE_RANGE = 5f, MAX_PUSH_FORCE = 10;
     private float currentCharge;
 
     private enum PlayerStates {Charging, Standard, FullyCharged};
@@ -65,7 +71,7 @@ public class PlayerMechanics : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	private void Update () {
         CheckKeys();
         position += velocity * Time.deltaTime;
         transform.RotateAround(transform.position, Vector3.up, velocity);
@@ -75,7 +81,6 @@ public class PlayerMechanics : MonoBehaviour {
             velocity = 0;
         }
 
-		/*
 		// Play particles
 		if (velocity > 0.2f) {
 			particlesLeft.Stop ();
@@ -91,12 +96,10 @@ public class PlayerMechanics : MonoBehaviour {
 			particlesLeft.Stop ();
 			particlesRight.Stop ();
 		}
-		*/
 
     }
 
-
-    void CheckKeys()
+    private void CheckKeys()
     {
         if (Input.GetKey(leftKey))
         {
@@ -118,7 +121,7 @@ public class PlayerMechanics : MonoBehaviour {
         }
     }
 
-    void ChargeShot()
+    private void ChargeShot()
     {
         playerState = PlayerStates.Charging;
         velocity = Mathf.Clamp(velocity, -chargeMovementspeed, chargeMovementspeed);
@@ -133,9 +136,13 @@ public class PlayerMechanics : MonoBehaviour {
         }
     }
 
-    void FireShot()
+    private void FireShot()
     {
         var shootColliderBehaviour = shootCollider.GetComponent<ShootColliderBehaviour>();
+
+        // Return if the ball is above the player
+        if (Manager.manager.Ball.transform.position.y > transform.position.y)
+            return;
 
         if (shootColliderBehaviour.Collision != null && !shootColliderBehaviour.HasShot)
         {
@@ -151,16 +158,34 @@ public class PlayerMechanics : MonoBehaviour {
             var soundWave = Instantiate(Manager.manager.SoundWave);
             soundWave.transform.position = player.transform.position;
             currentCharge = 0;
+
+            // Set color of the ball's base color to the player's color
+            Manager.manager.Ball.GetComponent<Ball>().Shooter = playerType;
+        }
+    }
+
+    public int PlayerType
+    {
+        get { return playerType; }
+        set
+        {
+            switch(value)
+            {
+                case PLAYER_ONE:
+                    color = Color.red;
+                    break;
+                case PLAYER_TWO:
+                    color = Color.blue;
+                    break;
+            }
+
+            playerType = value;
         }
     }
 
     public Color Color
     {
         get { return color; }
-        set
-        {
-            color = value;
-        }
     }
 
     public float Radius
