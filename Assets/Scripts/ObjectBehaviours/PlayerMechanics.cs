@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class PlayerMechanics : MonoBehaviour {
 
-    private const float CHARGE_RATE = 30, MAX_CHARGE = 120, FIRE_RANGE = 5f, MAX_PUSH_FORCE = 1300;
+    private const float CHARGE_RATE = 30, MAX_CHARGE = 120, FIRE_RANGE = 5f, MAX_PUSH_FORCE = 10;
     private float currentCharge;
 
     private enum PlayerStates {Charging, Standard, FullyCharged};
@@ -112,7 +112,7 @@ public class PlayerMechanics : MonoBehaviour {
             print(direction);
             direction.Normalize();
             direction.y = -1;
-            float magnitude = MAX_PUSH_FORCE * (1f - (0.6f * (distance / FIRE_RANGE)));
+            float magnitude = MAX_PUSH_FORCE * (1f - (1 * (distance / FIRE_RANGE)));
             Manager.manager.BallScript.RigidBody.AddForce(magnitude * direction, ForceMode.Impulse);
             
         }

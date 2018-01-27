@@ -5,7 +5,7 @@ using UnityEngine;
 public class Ball : MonoBehaviour {
 
 	public float gravity = 0.4f;
-	public float startForce = 2800f;
+	public float startForce = 3200f;
 	public float playerYMargin;
 
 	private float playerY = 0;
@@ -18,6 +18,7 @@ public class Ball : MonoBehaviour {
     {
         rigidBody = GetComponent<Rigidbody>();
         Manager.manager.BallScript = GetComponent<Ball>();
+        print(Manager.manager.BallScript);
     }
 
 

@@ -9,7 +9,7 @@ public class Manager : MonoBehaviour
     [SerializeField] private GameObject player;
 
     private GameStates state;
-    private Vector3 spawnPoint1, spawnPoint2;
+    private List<Vector3> spawnPoints;
     public static Manager manager;
     public KeyCode[] keyCodes;
     public List<GameObject> PlayerObjects { get; set; }
@@ -21,6 +21,7 @@ public class Manager : MonoBehaviour
 
         manager = this;
 		PlayerObjects = new List<GameObject>();
+        spawnPoints = new List<Vector3>();
 		
 		InitializeGame();
 	}
@@ -46,10 +47,10 @@ public class Manager : MonoBehaviour
         PlayerObjects[1].GetComponent<PlayerMechanics>().CustomStart();
 
         Ball = GameObject.Find("Ball");
-        spawnPoint1 = GameObject.Find("Ball Spawn 1").transform.position;
-        spawnPoint2 = GameObject.Find("Ball Spawn 2").transform.position;
-        var randomPlayer = PlayerObjects[(int)Mathf.Round(Random.Range(0, 1))];
-        Ball.transform.position = randomPlayer.transform.position + randomPlayer.transform.forward * 2;
+        int random = (int)Mathf.Round(Random.Range(0, 1));
+        spawnPoints.Add(GameObject.Find("Ball Spawn 1").transform.position);
+        spawnPoints.Add(GameObject.Find("Ball Spawn 2").transform.position);
+        Ball.transform.position = spawnPoints[random];
         state = GameStates.Playing;
     }
 

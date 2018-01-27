@@ -7,6 +7,7 @@ public class CameraFollower : MonoBehaviour
 	private void Start()
 	{
         _target = transform.parent.gameObject;
+        transform.parent = null;
 	}
 
 	private void Update()
@@ -18,9 +19,7 @@ public class CameraFollower : MonoBehaviour
 		transform.position = _target.transform.position;
 		transform.LookAt(_target.transform.parent.position);
         var lookPos = Manager.manager.Ball.transform.position - transform.position;
-        lookPos.z = 0;
         var rotation = Quaternion.LookRotation(lookPos);
-        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.5f * Time.deltaTime);
-
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 20f * Time.deltaTime);
     }
 }
