@@ -205,6 +205,11 @@ Prefab:
       propertyPath: mapController
       value: 
       objectReference: {fileID: 150071242}
+    - target: {fileID: 114648399885528484, guid: cb3fedfa63fcfbb49a82e9f4c7411314,
+        type: 2}
+      propertyPath: boostStrength
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb3fedfa63fcfbb49a82e9f4c7411314, type: 2}
   m_IsPrefabParent: 0
