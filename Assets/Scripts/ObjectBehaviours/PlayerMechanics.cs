@@ -7,19 +7,20 @@ using UnityEngine;
 /// </summary>
 public class PlayerMechanics : MonoBehaviour {
 
-    private const float CHARGE_RATE = 30, MAX_CHARGE = 120, FIRE_RANGE = 5f, MAX_PUSH_FORCE = 10;
     private float currentCharge;
 
     private enum PlayerStates {Charging, Standard, FullyCharged};
     private PlayerStates playerState;
 
     public int id;
-    public GameObject player;
+    public GameObject player, shootCollider;
     public float radius, position, height;
     public KeyCode leftKey, rightKey, actionKey;
     public float velocity, accelerationRate, dampening;
     public Material[] materialList;
     private Camera camera;
+    [SerializeField] private float chargeMovementspeed;
+    [SerializeField] private float minCharge, maxCharge, chargeSpeed;
 
     private Color color;
 
@@ -44,8 +45,10 @@ public class PlayerMechanics : MonoBehaviour {
             rightKey = Manager.manager.keyCodes[1];
             actionKey = Manager.manager.keyCodes[2];
             position = 0;
+            player.layer = 9;
+            camera.cullingMask = 1 << 0 | 1 << 1 | 1 << 2 | 1 << 4 | 1 << 5 | 1 << 8 | 1 << 10;
         }
-
+        
         else
         {
             camera.rect = new Rect(camera.rect.x, 0.0f, camera.rect.width, 0.5f);
@@ -53,6 +56,8 @@ public class PlayerMechanics : MonoBehaviour {
             rightKey = Manager.manager.keyCodes[4];
             actionKey = Manager.manager.keyCodes[5];
             position = 180;
+            player.layer = 10;
+            camera.cullingMask = 1 << 0 | 1 << 1 | 1 << 2 | 1 << 4 | 1 << 5 | 1 << 8 | 1 << 9;
         }
 
         player.transform.position = new Vector3(radius, height, 0);
@@ -62,7 +67,7 @@ public class PlayerMechanics : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         CheckKeys();
-        position += velocity;
+        position += velocity * Time.deltaTime;
         transform.RotateAround(transform.position, Vector3.up, velocity);
         velocity *= dampening;
         if (Mathf.Abs(velocity) < 0.001)
@@ -116,11 +121,12 @@ public class PlayerMechanics : MonoBehaviour {
     void ChargeShot()
     {
         playerState = PlayerStates.Charging;
+        velocity = Mathf.Clamp(velocity, -chargeMovementspeed, chargeMovementspeed);
 
-        if (playerState == PlayerStates.Charging && currentCharge < MAX_CHARGE)
+        if (playerState == PlayerStates.Charging && currentCharge < maxCharge)
         {
-            currentCharge += CHARGE_RATE * Time.deltaTime;
-            if (currentCharge >= MAX_CHARGE)
+            currentCharge += chargeSpeed * Time.deltaTime;
+            if (currentCharge >= maxCharge)
             {
                 playerState = PlayerStates.FullyCharged;
             }
@@ -129,24 +135,23 @@ public class PlayerMechanics : MonoBehaviour {
 
     void FireShot()
     {
-        float distance = Vector3.Distance(player.transform.position, Manager.manager.Ball.transform.position);
+        var shootColliderBehaviour = shootCollider.GetComponent<ShootColliderBehaviour>();
 
-        if (distance <= FIRE_RANGE)
+        if (shootColliderBehaviour.Collision != null && !shootColliderBehaviour.HasShot)
         {
-            Vector3 direction = Manager.manager.Ball.transform.position - player.transform.position;
-            print(direction);
-            direction.Normalize();
-            direction.y = -1;
-            float magnitude = MAX_PUSH_FORCE * (1f - (1 * (distance / FIRE_RANGE)));
-            Manager.manager.BallScript.RigidBody.AddForce(magnitude * direction, ForceMode.Impulse);
+            shootColliderBehaviour.HasShot = true;
 
-            // Set color of the ball's base color to the player's color
-            Manager.manager.Ball.GetComponent<MeshRenderer>().materials[1].color = color;
+            var ball = Manager.manager.Ball;
+            var ballScript = Manager.manager.BallScript;
+            var offsetToBall = ball.transform.position - player.transform.position;
+            var pushForce = Mathf.Clamp(currentCharge, minCharge, maxCharge);
+
+            ballScript.RigidBody.AddForce(offsetToBall.normalized * pushForce, ForceMode.Impulse);
+
+            var soundWave = Instantiate(Manager.manager.SoundWave);
+            soundWave.transform.position = player.transform.position;
+            currentCharge = 0;
         }
-        playerState = PlayerStates.Standard;
-
-        var soundWave = Instantiate(Manager.manager.SoundWave);
-        soundWave.transform.position = player.transform.position;
     }
 
     public Color Color
