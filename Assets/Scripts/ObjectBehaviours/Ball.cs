@@ -12,23 +12,27 @@ public class Ball : MonoBehaviour {
     private bool isInitialized = true;
 
     private Rigidbody rigidBody;
+    private bool reachedTop;
+    private int shooterType;
+
+    private GameObject mapObjectRef;
 
 	// Use this for initialization
-    void Awake()
+    private void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
         Manager.manager.BallScript = GetComponent<Ball>();
-        print(Manager.manager.BallScript);
     }
 
 
-	void Start () {
+	private void Start () {
 		Physics.gravity = Vector3.down * gravity;
 
-		GetComponent<Rigidbody> ().AddForce (Vector3.down * startForce, ForceMode.Acceleration);
+        mapObjectRef = GameObject.Find("map");
+
+        GetComponent<Rigidbody> ().AddForce (Vector3.down * startForce, ForceMode.Acceleration);
 	}
     
-	
     public Rigidbody RigidBody
     {
         get { return rigidBody; }
@@ -36,24 +40,102 @@ public class Ball : MonoBehaviour {
 
     public float PlayerY
     {
-        get { return playerY; }
         set { playerY = value; }
     }
 
 	private void FixedUpdate()
 	{
-		if (!isInitialized && transform.position.y >= playerY + playerYMargin) {
-			gameObject.SetActive (false);
-			Debug.Log ("JIJ BENT AF!");
+        float maxY = playerY + playerYMargin;
+
+        if (!isInitialized && transform.position.y >= maxY) {
+            reachedTop = true;
 		}
+
+        // Calculate trajectory between ball and map
+        Vector2 trajectory = new Vector2(mapObjectRef.transform.position.x, mapObjectRef.transform.position.z) - new Vector2(transform.position.x, transform.position.z);
+        
+        // Ball goes out of bounds
+        if (trajectory.magnitude > mapObjectRef.transform.lossyScale.x)
+        {
+            // Player who shot the ball, wins
+            foreach(GameObject player in Manager.manager.PlayerObjects)
+            {
+                PlayerMechanics playerMech = player.GetComponent<PlayerMechanics>();
+                if (playerMech.PlayerType == shooterType)
+                {
+                    // Winner
+                    Debug.Log(playerMech.PlayerType + " won the game!");
+                    FinishMatch(playerMech.PlayerType);
+                } else
+                {
+                    // Loser
+                }
+            }
+        }
 	}
+
+    private void FinishMatch(int winnerType)
+    {
+        if (Manager.manager.State == GameStates.Finishing)
+            return;
+
+        Manager.manager.PlayerScores[winnerType] += 1;
+        Manager.manager.State = GameStates.Finishing;
+
+        //Reset level
+        StartCoroutine(DelayedReset());
+    }
+
+    private IEnumerator DelayedReset()
+    {
+        yield return new WaitForSeconds(Manager.manager.ResetDelay);
+
+        Manager.manager.SpawnLevel1();
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
         // First contact
         if(isInitialized)
         {
-            //isInitialized = false;
+            isInitialized = false;
+            return;
+        }
+
+        if(collision.collider.tag == "Terrain")
+        {
+            // Ball is out of bounds by a hole, the shooter loses
+            foreach (GameObject player in Manager.manager.PlayerObjects)
+            {
+                PlayerMechanics playerMech = player.GetComponent<PlayerMechanics>();
+
+                if (playerMech.PlayerType == shooterType)
+                    continue;
+
+                Debug.Log(playerMech.PlayerType + " won the game!");
+
+                FinishMatch(playerMech.PlayerType);
+            }
+        }
+    }
+
+    public int Shooter
+    {
+        get { return shooterType; }
+        set
+        {
+            Material baseMaterial = Manager.manager.Ball.GetComponent<MeshRenderer>().materials[1];
+            switch (value)
+            {
+                case PlayerMechanics.PLAYER_ONE:
+                    baseMaterial.color = Color.red;
+                    break;
+                case PlayerMechanics.PLAYER_TWO:
+                    baseMaterial.color = Color.blue;
+                    break;
+            }
+
+            shooterType = value;
         }
     }
 }

@@ -142,8 +142,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ball: {fileID: 1906548987442092, guid: 508916e6790d95d43bde871f2e7746ab, type: 2}
   player: {fileID: 1623837674322690, guid: e316f07be85bb984298045e200d1697c, type: 2}
+  resetDelay: 3
   spawnPoints: []
   keyCodes: 610000006400000077000000140100001301000012010000
+  playerScores: 
 --- !u!4 &339889520
 Transform:
   m_ObjectHideFlags: 0

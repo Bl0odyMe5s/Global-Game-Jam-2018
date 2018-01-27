@@ -7,6 +7,11 @@ using UnityEngine;
 /// </summary>
 public class PlayerMechanics : MonoBehaviour {
 
+    public const int PLAYER_ONE = 0;
+    public const int PLAYER_TWO = 1;
+
+    private int playerType;
+
     private const float CHARGE_RATE = 30, MAX_CHARGE = 120, FIRE_RANGE = 5f, MAX_PUSH_FORCE = 10;
     private float currentCharge;
 
@@ -60,7 +65,7 @@ public class PlayerMechanics : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	private void Update () {
         CheckKeys();
         position += velocity;
         transform.RotateAround(transform.position, Vector3.up, velocity);
@@ -88,8 +93,7 @@ public class PlayerMechanics : MonoBehaviour {
 
     }
 
-
-    void CheckKeys()
+    private void CheckKeys()
     {
         if (Input.GetKey(leftKey))
         {
@@ -111,7 +115,7 @@ public class PlayerMechanics : MonoBehaviour {
         }
     }
 
-    void ChargeShot()
+    private void ChargeShot()
     {
         playerState = PlayerStates.Charging;
 
@@ -125,32 +129,51 @@ public class PlayerMechanics : MonoBehaviour {
         }
     }
 
-    void FireShot()
+    private void FireShot()
     {
         float distance = Vector3.Distance(player.transform.position, Manager.manager.Ball.transform.position);
 
         if (distance <= FIRE_RANGE)
         {
+            // Return if the ball is above the player
+            if (Manager.manager.Ball.transform.position.y > transform.position.y)
+                return;
+
             Vector3 direction = Manager.manager.Ball.transform.position - player.transform.position;
-            print(direction);
+            
             direction.Normalize();
             direction.y = -1;
             float magnitude = MAX_PUSH_FORCE * (1f - (1 * (distance / FIRE_RANGE)));
             Manager.manager.BallScript.RigidBody.AddForce(magnitude * direction, ForceMode.Impulse);
 
             // Set color of the ball's base color to the player's color
-            Manager.manager.Ball.GetComponent<MeshRenderer>().materials[1].color = color;
+            Manager.manager.Ball.GetComponent<Ball>().Shooter = playerType;
         }
         playerState = PlayerStates.Standard;
+    }
+
+    public int PlayerType
+    {
+        get { return playerType; }
+        set
+        {
+            switch(value)
+            {
+                case PLAYER_ONE:
+                    color = Color.red;
+                    break;
+                case PLAYER_TWO:
+                    color = Color.blue;
+                    break;
+            }
+
+            playerType = value;
+        }
     }
 
     public Color Color
     {
         get { return color; }
-        set
-        {
-            color = value;
-        }
     }
 
     public float Radius

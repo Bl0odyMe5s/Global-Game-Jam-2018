@@ -8,6 +8,8 @@ public class Manager : MonoBehaviour
     [SerializeField] private GameObject ball;
     [SerializeField] private GameObject player;
 
+    [SerializeField] int resetDelay;
+
     private GameStates state;
     public List<Vector3> spawnPoints;
     public static Manager manager;
@@ -15,12 +17,16 @@ public class Manager : MonoBehaviour
     public List<GameObject> PlayerObjects { get; set; }
     public GameObject Ball { get; set; }
     public Ball BallScript { get; set; }
+
+    [SerializeField]
+    private List<int> playerScores;
 	
 	private void Awake () {
 		DontDestroyOnLoad(gameObject);
 
         manager = this;
 		PlayerObjects = new List<GameObject>();
+        playerScores = new List<int> { 0,0 };
         spawnPoints = new List<Vector3>();
 		
 		InitializeGame();
@@ -36,10 +42,19 @@ public class Manager : MonoBehaviour
     private IEnumerator PopulateLevel1()
     {
         yield return new WaitUntil(() => SceneManager.GetActiveScene().name == "GameScene");
+
+        if (PlayerObjects.Count > 0)
+        {
+            PlayerObjects = new List<GameObject>();
+            spawnPoints = new List<Vector3>();
+        }
+
         GameObject player1 = GameObject.Instantiate(player);
-        player1.GetComponent<PlayerMechanics>().Color = Color.red;
         GameObject player2 = GameObject.Instantiate(player);
-        player2.GetComponent<PlayerMechanics>().Color = Color.blue;
+
+        player1.GetComponent<PlayerMechanics>().PlayerType = PlayerMechanics.PLAYER_ONE;
+        player2.GetComponent<PlayerMechanics>().PlayerType = PlayerMechanics.PLAYER_TWO;
+  
         PlayerObjects.Add(player1);
         PlayerObjects.Add(player2);
 
@@ -54,6 +69,7 @@ public class Manager : MonoBehaviour
         spawnPoints.Add(GameObject.Find("Ball Spawn 2").transform.position);
         Ball.transform.position = spawnPoints[random];
         BallScript.PlayerY = player.transform.position.y;
+
         state = GameStates.Playing;
     }
 
@@ -62,6 +78,20 @@ public class Manager : MonoBehaviour
 		state = GameStates.Playing;
 		SceneManager.LoadScene("MenuScene");
 	}
+
+    public List<int> PlayerScores
+    {
+        get { return playerScores; }
+        set
+        {
+            playerScores = value;
+        }
+    }
+
+    public int ResetDelay
+    {
+        get { return resetDelay; }
+    }
 
 	public GameStates State
 	{
