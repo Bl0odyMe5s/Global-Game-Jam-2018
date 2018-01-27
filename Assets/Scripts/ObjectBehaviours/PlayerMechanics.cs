@@ -21,6 +21,8 @@ public class PlayerMechanics : MonoBehaviour {
     public Material[] materialList;
     private Camera camera;
 
+    private Color color;
+
     private void Awake()
     {
         var playerObject = new PlayerObject(this.transform.name, gameObject);
@@ -137,11 +139,21 @@ public class PlayerMechanics : MonoBehaviour {
             direction.y = -1;
             float magnitude = MAX_PUSH_FORCE * (1f - (1 * (distance / FIRE_RANGE)));
             Manager.manager.BallScript.RigidBody.AddForce(magnitude * direction, ForceMode.Impulse);
-            
+
+            // Set color of the ball's base color to the player's color
+            Manager.manager.Ball.GetComponent<MeshRenderer>().materials[1].color = color;
         }
         playerState = PlayerStates.Standard;
     }
 
+    public Color Color
+    {
+        get { return color; }
+        set
+        {
+            color = value;
+        }
+    }
 
     public float Radius
     {

@@ -38,7 +38,9 @@ public class Manager : MonoBehaviour
     {
         yield return new WaitUntil(() => SceneManager.GetActiveScene().name == "GameScene");
         GameObject player1 = GameObject.Instantiate(player);
+        player1.GetComponent<PlayerMechanics>().Color = Color.red;
         GameObject player2 = GameObject.Instantiate(player);
+        player2.GetComponent<PlayerMechanics>().Color = Color.blue;
         PlayerObjects.Add(player1);
         PlayerObjects.Add(player2);
 
