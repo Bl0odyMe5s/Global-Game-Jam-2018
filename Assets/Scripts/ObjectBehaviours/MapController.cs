@@ -4,20 +4,33 @@ using UnityEngine;
 
 public class MapController : MonoBehaviour {
 
-	public int tileCount = 0;
+    public int maxTilesToRelease = 0;
 	public float releaseProbability = 0;
+    public int tileDestroyTime = 0;
 
     [SerializeField]
     private Transform partParent;
+    private int tileCount = 0;
+    private bool releasing = true;
 	
 	// Update is called once per frame
 	private void Update () 
 	{
-		if(Random.Range(0, 100) > 100f - releaseProbability)
+        if (!releasing)
+            return;
+
+        if (Random.Range(0, 100) > 100f - releaseProbability && tileCount < maxTilesToRelease)
         {
             ReleaseTile();
         }
 	}
+
+    private IEnumerator DelayedDestroy(Transform t)
+    {
+        yield return new WaitForSeconds(tileDestroyTime);
+
+        Destroy(t.gameObject);
+    }
 
 	public void ReleaseTile()
 	{
@@ -31,6 +44,9 @@ public class MapController : MonoBehaviour {
                 // Release tile
                 child.parent = null;
                 Rigidbody rb = child.gameObject.AddComponent<Rigidbody>();
+                tileCount++;
+
+                StartCoroutine(DelayedDestroy(child));
 
                 return;
             }
@@ -38,4 +54,13 @@ public class MapController : MonoBehaviour {
             index++;
         }
 	}
+
+    public bool Releasing
+    {
+        get { return releasing; }
+        set
+        {
+            releasing = value;
+        }
+    }
 }
