@@ -11,7 +11,7 @@ public class MapController : MonoBehaviour {
     [SerializeField]
     private Transform partParent;
     private int tileCount = 0;
-    private bool releasing = true;
+    private bool releasing = false;
 	
 	// Update is called once per frame
 	private void Update () 
@@ -46,7 +46,7 @@ public class MapController : MonoBehaviour {
                 Rigidbody rb = child.gameObject.AddComponent<Rigidbody>();
                 tileCount++;
 
-                StartCoroutine(DelayedDestroy(child));
+                // StartCoroutine(DelayedDestroy(child));
 
                 return;
             }
@@ -55,7 +55,7 @@ public class MapController : MonoBehaviour {
         }
 	}
 
-    public bool Releasing
+    public bool AutoRelease
     {
         get { return releasing; }
         set
