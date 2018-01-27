@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ball
+  - Terrain
   layers:
   - Default
   - TransparentFX
@@ -15,8 +16,8 @@ TagManager:
   - 
   - 
   - Particles
-  - 
-  - 
+  - Player 1
+  - Player 2
   - 
   - 
   - 
