@@ -17,9 +17,6 @@ public class CameraFollower : MonoBehaviour
             return;
         }
 		transform.position = _target.transform.position;
-		transform.LookAt(_target.transform.parent.position);
-        var lookPos = Manager.manager.Ball.transform.position - transform.position;
-        var rotation = Quaternion.LookRotation(lookPos);
-        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 20f * Time.deltaTime);
+		transform.LookAt(Manager.manager.Ball.transform.position);
     }
 }

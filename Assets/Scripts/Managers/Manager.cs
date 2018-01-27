@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class Manager : MonoBehaviour
 {
@@ -66,4 +67,6 @@ public class Manager : MonoBehaviour
 		get { return state; }
 		set { state = value; }
 	}
+
+
 }
