@@ -283,57 +283,10 @@ Prefab:
       propertyPath: m_Name
       value: Player 2
       objectReference: {fileID: 0}
-    - target: {fileID: 4612634955682442, guid: e316f07be85bb984298045e200d1697c, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 4612634955682442, guid: e316f07be85bb984298045e200d1697c, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 20416053669916430, guid: e316f07be85bb984298045e200d1697c,
-        type: 2}
-      propertyPath: m_NormalizedViewPortRect.height
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 20416053669916430, guid: e316f07be85bb984298045e200d1697c,
         type: 2}
       propertyPath: m_NormalizedViewPortRect.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114757454458596778, guid: e316f07be85bb984298045e200d1697c,
-        type: 2}
-      propertyPath: radius
-      value: -9.58
-      objectReference: {fileID: 0}
-    - target: {fileID: 20416053669916430, guid: e316f07be85bb984298045e200d1697c,
-        type: 2}
-      propertyPath: field of view
-      value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 114757454458596778, guid: e316f07be85bb984298045e200d1697c,
-        type: 2}
-      propertyPath: leftKey
-      value: 276
-      objectReference: {fileID: 0}
-    - target: {fileID: 114757454458596778, guid: e316f07be85bb984298045e200d1697c,
-        type: 2}
-      propertyPath: rightKey
-      value: 275
-      objectReference: {fileID: 0}
-    - target: {fileID: 114757454458596778, guid: e316f07be85bb984298045e200d1697c,
-        type: 2}
-      propertyPath: actionKey
-      value: 274
-      objectReference: {fileID: 0}
-    - target: {fileID: 4633499191953454, guid: e316f07be85bb984298045e200d1697c, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114757454458596778, guid: e316f07be85bb984298045e200d1697c,
-        type: 2}
-      propertyPath: height
-      value: -2.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e316f07be85bb984298045e200d1697c, type: 2}
@@ -383,32 +336,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 20416053669916430, guid: e316f07be85bb984298045e200d1697c,
         type: 2}
-      propertyPath: m_NormalizedViewPortRect.width
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 20416053669916430, guid: e316f07be85bb984298045e200d1697c,
-        type: 2}
-      propertyPath: m_NormalizedViewPortRect.height
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 20416053669916430, guid: e316f07be85bb984298045e200d1697c,
-        type: 2}
       propertyPath: m_NormalizedViewPortRect.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 20416053669916430, guid: e316f07be85bb984298045e200d1697c,
+    - target: {fileID: 114757454458596778, guid: e316f07be85bb984298045e200d1697c,
         type: 2}
-      propertyPath: field of view
-      value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 4633499191953454, guid: e316f07be85bb984298045e200d1697c, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -2.5
+      propertyPath: leftKey
+      value: 97
       objectReference: {fileID: 0}
     - target: {fileID: 114757454458596778, guid: e316f07be85bb984298045e200d1697c,
         type: 2}
-      propertyPath: height
-      value: -2.5
+      propertyPath: rightKey
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757454458596778, guid: e316f07be85bb984298045e200d1697c,
+        type: 2}
+      propertyPath: actionKey
+      value: 119
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e316f07be85bb984298045e200d1697c, type: 2}
