@@ -283,6 +283,11 @@ Prefab:
       propertyPath: m_Name
       value: Player 2
       objectReference: {fileID: 0}
+    - target: {fileID: 20416053669916430, guid: e316f07be85bb984298045e200d1697c,
+        type: 2}
+      propertyPath: m_NormalizedViewPortRect.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e316f07be85bb984298045e200d1697c, type: 2}
   m_IsPrefabParent: 0
@@ -328,6 +333,26 @@ Prefab:
     - target: {fileID: 1395031774252248, guid: e316f07be85bb984298045e200d1697c, type: 2}
       propertyPath: m_Name
       value: Player 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 20416053669916430, guid: e316f07be85bb984298045e200d1697c,
+        type: 2}
+      propertyPath: m_NormalizedViewPortRect.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757454458596778, guid: e316f07be85bb984298045e200d1697c,
+        type: 2}
+      propertyPath: leftKey
+      value: 97
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757454458596778, guid: e316f07be85bb984298045e200d1697c,
+        type: 2}
+      propertyPath: rightKey
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757454458596778, guid: e316f07be85bb984298045e200d1697c,
+        type: 2}
+      propertyPath: actionKey
+      value: 119
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e316f07be85bb984298045e200d1697c, type: 2}
