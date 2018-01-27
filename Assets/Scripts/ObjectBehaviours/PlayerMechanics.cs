@@ -20,9 +20,11 @@ public class PlayerMechanics : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        player.transform.position = new Vector3(radius * Mathf.Cos(Mathf.Deg2Rad * position), height, radius * Mathf.Sin(Mathf.Deg2Rad * position));
-        print(player.transform.position);
-
+        //player.transform.position = new Vector3(radius * Mathf.Cos(Mathf.Deg2Rad * position), height, radius * Mathf.Sin(Mathf.Deg2Rad * position));
+	    
+	    var playerObject = new PlayerObject(this.transform.name, gameObject);
+        var manager = FindObjectOfType<Manager>();
+	    manager.PlayerObjects.Add(playerObject);
     }
 	
 	// Update is called once per frame
@@ -86,7 +88,7 @@ public class PlayerMechanics : MonoBehaviour {
             direction.Normalize();
             direction.y = -1;
             float magnitude = MAX_PUSH_FORCE * (1f - (0.6f * (distance / FIRE_RANGE)));
-            Manager.manager.Ball.RigidBody.AddForce(magnitude * direction, ForceMode.Impulse);
+            Manager.manager.BallComponent.RigidBody.AddForce(magnitude * direction, ForceMode.Impulse);
             
         }
         playerState = PlayerStates.Standard;
@@ -115,11 +117,5 @@ public class PlayerMechanics : MonoBehaviour {
         {
             position = value; 
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = new Color(1, 0, 0, 0.4f);
-        Gizmos.DrawSphere(player.transform.position, FIRE_RANGE);
     }
 }

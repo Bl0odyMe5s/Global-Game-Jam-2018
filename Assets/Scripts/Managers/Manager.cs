@@ -1,25 +1,29 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Manager : MonoBehaviour
 {
 	private List<PlayerObject> playerObjects;
+	private GameObject _ball;
 	private GameStates state;
     private Ball ball;
     public static Manager manager;
 	
-	void Awake () {
+	private void Awake () {
 		DontDestroyOnLoad(gameObject);
 
         manager = this;
 		
+		PlayerObjects = new List<PlayerObject>();
+		
 		InitializeGame();
 	}
 
-	void InitializeGame()
+	private void InitializeGame()
 	{
-		playerObjects = new List<PlayerObject>{new PlayerObject("Player 1"), new PlayerObject("Player 2")};
 		state = GameStates.Playing;
+		SceneManager.LoadScene("MenuScene");
 	}
 
 	public List<PlayerObject> PlayerObjects
@@ -34,9 +38,14 @@ public class Manager : MonoBehaviour
 		set { state = value; }
 	}
 
-    public Ball Ball
+	public GameObject Ball
+	{
+		get { return _ball; }
+		set { _ball = value; }
+	}
+
+    public Ball BallComponent
     {
-        get { return ball; }
-        set { ball = value; }
+        get { return _ball.GetComponent<Ball>(); }
     }
 }

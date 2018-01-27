@@ -17,7 +17,7 @@ public class MenuManager : MonoBehaviour {
 	
     private void StartGame()
     {
-        SceneManager.LoadScene("ArenaScene");
+        SceneManager.LoadScene("GameScene");
     }
 
     private void QuitGame()
