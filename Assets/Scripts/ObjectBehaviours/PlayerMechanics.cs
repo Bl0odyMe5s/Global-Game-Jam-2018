@@ -13,25 +13,50 @@ public class PlayerMechanics : MonoBehaviour {
     private enum PlayerStates {Charging, Standard, FullyCharged};
     private PlayerStates playerState;
 
+    public int id;
     public GameObject player;
     public float radius, position, height;
     public KeyCode leftKey, rightKey, actionKey;
     public float velocity, accelerationRate, dampening;
+    public Material[] materialList;
+    private Camera camera;
+
+    private void Awake()
+    {
+        var playerObject = new PlayerObject(this.transform.name, gameObject);
+        camera = player.transform.GetChild(0).transform.GetChild(0).GetComponent<Camera>();
+    }
 
 	// Use this for initialization
-	void Start () {
-        //player.transform.position = new Vector3(radius * Mathf.Cos(Mathf.Deg2Rad * position), height, radius * Mathf.Sin(Mathf.Deg2Rad * position));
-	    
-	    var playerObject = new PlayerObject(this.transform.name, gameObject);
-        var manager = FindObjectOfType<Manager>();
-	    manager.PlayerObjects.Add(playerObject);
+	public void CustomStart () {
+        player.GetComponent<MeshRenderer>().material = materialList[id];
+        if (id == 0)
+        {
+            camera.rect = new Rect(camera.rect.x, 0.5f, camera.rect.width, 0.5f);
+            leftKey = Manager.manager.keyCodes[0];
+            rightKey = Manager.manager.keyCodes[1];
+            actionKey = Manager.manager.keyCodes[2];
+            position = 0;
+        }
+
+        else
+        {
+            camera.rect = new Rect(camera.rect.x, 0.0f, camera.rect.width, 0.5f);
+            leftKey = Manager.manager.keyCodes[3];
+            rightKey = Manager.manager.keyCodes[4];
+            actionKey = Manager.manager.keyCodes[5];
+            position = 180;
+        }
+
+        player.transform.position = new Vector3(radius, height, 0);
+        transform.RotateAround(transform.position, Vector3.up, position);
     }
 	
 	// Update is called once per frame
 	void Update () {
         CheckKeys();
         position += velocity;
-        player.transform.RotateAround(transform.position, Vector3.up, velocity);
+        transform.RotateAround(transform.position, Vector3.up, velocity);
         velocity *= dampening;
         if (Mathf.Abs(velocity) < 0.001)
         {
@@ -88,7 +113,7 @@ public class PlayerMechanics : MonoBehaviour {
             direction.Normalize();
             direction.y = -1;
             float magnitude = MAX_PUSH_FORCE * (1f - (0.6f * (distance / FIRE_RANGE)));
-            Manager.manager.BallComponent.RigidBody.AddForce(magnitude * direction, ForceMode.Impulse);
+            Manager.manager.BallScript.RigidBody.AddForce(magnitude * direction, ForceMode.Impulse);
             
         }
         playerState = PlayerStates.Standard;
