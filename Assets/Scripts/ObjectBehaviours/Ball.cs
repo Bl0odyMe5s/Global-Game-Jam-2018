@@ -30,7 +30,7 @@ public class Ball : MonoBehaviour {
 
         mapObjectRef = GameObject.Find("map");
 
-        GetComponent<Rigidbody> ().AddForce (Vector3.down * startForce, ForceMode.Acceleration);
+        rigidBody.AddForce (Vector3.down * startForce, ForceMode.Impulse);
 	}
     
     public Rigidbody RigidBody

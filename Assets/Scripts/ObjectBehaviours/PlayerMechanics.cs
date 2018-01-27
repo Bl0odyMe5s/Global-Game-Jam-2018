@@ -24,7 +24,7 @@ public class PlayerMechanics : MonoBehaviour {
     public KeyCode leftKey, rightKey, actionKey;
     public float velocity, accelerationRate, dampening;
     public Material[] materialList;
-    private Camera camera;
+    public Camera camera;
     [SerializeField] private float chargeMovementspeed;
     [SerializeField] private float minCharge, maxCharge, chargeSpeed;
 
@@ -50,9 +50,9 @@ public class PlayerMechanics : MonoBehaviour {
             leftKey = Manager.manager.keyCodes[0];
             rightKey = Manager.manager.keyCodes[1];
             actionKey = Manager.manager.keyCodes[2];
-            position = 0;
             player.layer = 9;
             camera.cullingMask = 1 << 0 | 1 << 1 | 1 << 2 | 1 << 4 | 1 << 5 | 1 << 8 | 1 << 10;
+            position = 90;
         }
         
         else
@@ -61,18 +61,20 @@ public class PlayerMechanics : MonoBehaviour {
             leftKey = Manager.manager.keyCodes[3];
             rightKey = Manager.manager.keyCodes[4];
             actionKey = Manager.manager.keyCodes[5];
-            position = 180;
             player.layer = 10;
             camera.cullingMask = 1 << 0 | 1 << 1 | 1 << 2 | 1 << 4 | 1 << 5 | 1 << 8 | 1 << 9;
+            position = -90;
         }
 
         player.transform.position = new Vector3(radius, height, 0);
         transform.RotateAround(transform.position, Vector3.up, position);
     }
-	
-	// Update is called once per frame
-	private void Update () {
-        CheckKeys();
+    // Update is called once per frame
+    void Update() {
+        if (Manager.manager.State == GameStates.Playing)
+        {
+            CheckKeys();
+        }
         position += velocity * Time.deltaTime;
         transform.RotateAround(transform.position, Vector3.up, velocity);
         velocity *= dampening;

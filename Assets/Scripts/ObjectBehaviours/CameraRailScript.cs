@@ -169,10 +169,11 @@ public class CameraRailScript : MonoBehaviour
         }
         else //If arrived at the next node
         {
+            print(index + " "  + transform.childCount + "  " + direction);
             timePassed = 0; //Reset the time passed to potentially start interpolating all over again with the next next node.
             distancePassed = 0;
             if ((((index + 1 < transform.childCount && direction) || (index - 1 > 0 && !direction)) && interpolationMode == InterPolationMode.Linear) ||
-                (((index + 2 < transform.childCount && direction) || (index - 2 > 0 && !direction)) && interpolationMode == InterPolationMode.Hermite))
+                (((index + 3 < transform.childCount && direction) || (index - 3 > 0 && !direction)) && interpolationMode == InterPolationMode.Hermite))
             {//As long as there are enough nodes left to interpolate with.
                 if (direction)
                 {
@@ -207,6 +208,9 @@ public class CameraRailScript : MonoBehaviour
                         }
                         railClock = CamPointInterpolation(time, timePassed, distancePassed);
                         StartCoroutine(railClock);
+                        break;
+                    default:
+                        StartCoroutine(Manager.manager.StartLevel1());
                         break;
                 }
             }

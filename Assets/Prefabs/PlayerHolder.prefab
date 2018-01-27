@@ -326,14 +326,17 @@ MonoBehaviour:
   materialList:
   - {fileID: 2100000, guid: b336e027da392144fb159c3f07d29a93, type: 2}
   - {fileID: 2100000, guid: fe7ae9eea1c307c48a2182bae1b280e2, type: 2}
+  camera: {fileID: 0}
   chargeMovementspeed: 0.2
   minCharge: 2
   maxCharge: 10
   chargeSpeed: 3
   minParticleSpeed: 0
   maxParticleSpeed: 0
-  particlesRight: {fileID: 0}
-  particlesLeft: {fileID: 0}
+  particlesRight: {fileID: 198364801364957698, guid: b5d33d74f78e89c41be689cb03d88ef1,
+    type: 2}
+  particlesLeft: {fileID: 198661021855814150, guid: 91abfd033b9a42b458be5b43dcb3ee98,
+    type: 2}
 --- !u!114 &114214728583277488
 MonoBehaviour:
   m_ObjectHideFlags: 1
