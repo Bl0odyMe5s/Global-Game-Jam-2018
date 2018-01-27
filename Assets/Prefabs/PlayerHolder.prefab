@@ -269,6 +269,10 @@ MonoBehaviour:
   velocity: 0
   accelerationRate: 0.1
   dampening: 0.9
+  minParticleSpeed: 0
+  maxParticleSpeed: 0
+  particlesRight: {fileID: 0}
+  particlesLeft: {fileID: 0}
 --- !u!124 &124647830305188220
 Behaviour:
   m_ObjectHideFlags: 1
