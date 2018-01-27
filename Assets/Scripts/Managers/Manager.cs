@@ -40,8 +40,13 @@ public class Manager : MonoBehaviour
         yield return new WaitUntil(() => SceneManager.GetActiveScene().name == "GameScene");
         GameObject player1 = GameObject.Instantiate(player);
         player1.GetComponent<PlayerMechanics>().Color = Color.red;
+        player1.GetComponent<PlayerMechanics>().camera.GetComponent<CameraFollower>().enabled = false;
+        GameObject.Find("CameraRailPlayer1").GetComponent<CameraRailScript>().cam = player1.GetComponent<PlayerMechanics>().camera.GetComponent<Camera>();
         GameObject player2 = GameObject.Instantiate(player);
         player2.GetComponent<PlayerMechanics>().Color = Color.blue;
+        player2.GetComponent<PlayerMechanics>().camera.GetComponent<CameraFollower>().enabled = false;
+        GameObject.Find("CameraRailPlayer2").GetComponent<CameraRailScript>().cam = player2.GetComponent<PlayerMechanics>().camera.GetComponent<Camera>();
+
         PlayerObjects.Add(player1);
         PlayerObjects.Add(player2);
 
@@ -51,12 +56,27 @@ public class Manager : MonoBehaviour
         PlayerObjects[1].GetComponent<PlayerMechanics>().CustomStart();
 
         Ball = GameObject.Find("Ball");
+        Ball.GetComponent<Rigidbody>().isKinematic = true;
         int random = (int)Mathf.Round(Random.Range(0, 2));
         spawnPoints.Add(GameObject.Find("Ball Spawn 1").transform.position);
         spawnPoints.Add(GameObject.Find("Ball Spawn 2").transform.position);
         Ball.transform.position = spawnPoints[random];
         BallScript.PlayerY = player.transform.position.y;
+        state = GameStates.Introduction;
+    }
+
+    public IEnumerator StartLevel1()
+    {
+        GameObject.Find("CameraRailPlayer2").GetComponent<CameraRailScript>().enabled = false;
+        GameObject.Find("CameraRailPlayer2").GetComponent<CameraRailScript>().enabled = false;
+
+        yield return new WaitForSeconds(1);
+        PlayerObjects[0].GetComponent<PlayerMechanics>().camera.GetComponent<CameraFollower>().enabled = true;
+        PlayerObjects[1].GetComponent<PlayerMechanics>().camera.GetComponent<CameraFollower>().enabled = true;
+
+        yield return new WaitForSeconds(1);
         state = GameStates.Playing;
+        Ball.GetComponent<Rigidbody>().isKinematic = false;
     }
 
     private void InitializeGame()

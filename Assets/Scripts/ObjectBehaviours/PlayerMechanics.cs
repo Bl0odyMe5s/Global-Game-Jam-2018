@@ -19,7 +19,7 @@ public class PlayerMechanics : MonoBehaviour {
     public KeyCode leftKey, rightKey, actionKey;
     public float velocity, accelerationRate, dampening;
     public Material[] materialList;
-    private Camera camera;
+    public Camera camera;
 
     private Color color;
 
@@ -43,7 +43,7 @@ public class PlayerMechanics : MonoBehaviour {
             leftKey = Manager.manager.keyCodes[0];
             rightKey = Manager.manager.keyCodes[1];
             actionKey = Manager.manager.keyCodes[2];
-            position = 0;
+            position = 90;
         }
 
         else
@@ -52,16 +52,19 @@ public class PlayerMechanics : MonoBehaviour {
             leftKey = Manager.manager.keyCodes[3];
             rightKey = Manager.manager.keyCodes[4];
             actionKey = Manager.manager.keyCodes[5];
-            position = 180;
+            position = -90;
         }
 
         player.transform.position = new Vector3(radius, height, 0);
         transform.RotateAround(transform.position, Vector3.up, position);
     }
-	
-	// Update is called once per frame
-	void Update () {
-        CheckKeys();
+
+    // Update is called once per frame
+    void Update() {
+        if (Manager.manager.State == GameStates.Playing)
+        {
+            CheckKeys();
+        }
         position += velocity;
         transform.RotateAround(transform.position, Vector3.up, velocity);
         velocity *= dampening;
