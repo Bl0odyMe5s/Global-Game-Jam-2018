@@ -15,6 +15,10 @@ public class PlayerMechanics : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         player.transform.position = new Vector3(radius * Mathf.Cos(Mathf.Deg2Rad * position), height, radius * Mathf.Sin(Mathf.Deg2Rad * position));
+	    
+	    var playerObject = new PlayerObject(this.transform.name, gameObject);
+        var manager = FindObjectOfType<Manager>();
+	    manager.PlayerObjects.Add(playerObject);
     }
 	
 	// Update is called once per frame
