@@ -8,6 +8,7 @@ public class Manager : MonoBehaviour
 {
     [SerializeField] private GameObject ball;
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject soundWave;
 
     private GameStates state;
     public List<Vector3> spawnPoints;
@@ -70,5 +71,8 @@ public class Manager : MonoBehaviour
 		set { state = value; }
 	}
 
-
+    public GameObject SoundWave
+    {
+        get { return soundWave; }
+    }
 }
