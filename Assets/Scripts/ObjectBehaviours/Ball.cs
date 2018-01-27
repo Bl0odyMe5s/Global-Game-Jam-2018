@@ -5,29 +5,27 @@ using UnityEngine;
 public class Ball : MonoBehaviour {
 
 	public float gravity = 0.4f;
-	public float startForce = 300f;
+	public float startForce = 3200f;
 	public float playerYMargin;
 
 	private float playerY = 0;
+    private bool isInitialized = true;
 
     private Rigidbody rigidBody;
 
 	// Use this for initialization
     void Awake()
     {
-        Manager.manager.Ball = gameObject;
         rigidBody = GetComponent<Rigidbody>();
+        Manager.manager.BallScript = GetComponent<Ball>();
+        print(Manager.manager.BallScript);
     }
 
 
 	void Start () {
 		Physics.gravity = Vector3.down * gravity;
 
-		//Get player Y position from game manager
-		Transform player = GameObject.Find ("player").transform;
-		playerY = player.position.y;
-
-		GetComponent<Rigidbody> ().AddForce (Vector2.down * startForce, ForceMode.Acceleration);
+		GetComponent<Rigidbody> ().AddForce (Vector3.down * startForce, ForceMode.Acceleration);
 	}
     
 	
@@ -36,11 +34,26 @@ public class Ball : MonoBehaviour {
         get { return rigidBody; }
     }
 
+    public float PlayerY
+    {
+        get { return playerY; }
+        set { playerY = value; }
+    }
+
 	private void FixedUpdate()
 	{
-		if (transform.position.y >= playerY + playerYMargin) {
+		if (!isInitialized && transform.position.y >= playerY + playerYMargin) {
 			gameObject.SetActive (false);
 			Debug.Log ("JIJ BENT AF!");
 		}
 	}
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        // First contact
+        if(isInitialized)
+        {
+            //isInitialized = false;
+        }
+    }
 }

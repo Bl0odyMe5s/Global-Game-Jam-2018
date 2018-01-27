@@ -6,6 +6,8 @@ public class Booster : MonoBehaviour {
 
 	public float boostStrength;
 
+    [SerializeField]
+    private MapController mapController;
 
 	private void OnTriggerEnter(Collider col)
 	{
@@ -16,6 +18,9 @@ public class Booster : MonoBehaviour {
 			return;
 
 		Rigidbody rb = ball.GetComponent<Rigidbody> ();
+
+        // Release a random tile
+        mapController.ReleaseTile();
 
 		Vector3 direction = rb.velocity.normalized;
 		rb.AddForce (direction * boostStrength, ForceMode.Acceleration);
