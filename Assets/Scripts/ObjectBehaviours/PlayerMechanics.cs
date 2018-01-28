@@ -155,7 +155,7 @@ public class PlayerMechanics : MonoBehaviour {
             var offsetToBall = ball.transform.position - player.transform.position;
             var pushForce = Mathf.Clamp(currentCharge, minCharge, maxCharge);
 
-            ballScript.RigidBody.AddForce(offsetToBall.normalized * pushForce, ForceMode.Impulse);
+            ballScript.RigidBody.AddForce(offsetToBall.normalized * pushForce, ForceMode.VelocityChange);
 
             var soundWave = Instantiate(Manager.manager.SoundWave);
             soundWave.transform.position = player.transform.position;

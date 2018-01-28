@@ -12,10 +12,7 @@ public class CameraFollower : MonoBehaviour
 
 	private void Update()
 	{
-        if (Manager.manager.State == GameStates.Initializing)
-        {
-            return;
-        }
+        if (Manager.manager.State == GameStates.Initializing) return;
 		transform.position = _target.transform.position;
 		transform.LookAt(Manager.manager.Ball.transform.position);
     }
