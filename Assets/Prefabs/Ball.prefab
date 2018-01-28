@@ -133,6 +133,8 @@ MonoBehaviour:
   gravity: 0.8
   startForce: 3
   playerYMargin: 0
+  _explodingBall: {fileID: 1372588804943470, guid: fcc13dbd4e3a6ec47bb314b07d7a9ec2,
+    type: 2}
 --- !u!135 &135647225859177302
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -163,6 +163,9 @@ public class PlayerMechanics : MonoBehaviour {
 
             // Set the player type as shooter of the ball
             Manager.manager.Ball.GetComponent<Ball>().Shooter = playerType;
+            
+            // Shake screen (why am I commenting)
+            camera.GetComponent<CameraShaker>().Shake(0.5f);
         }
     }
 
