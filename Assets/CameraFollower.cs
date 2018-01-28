@@ -15,8 +15,10 @@ public class CameraFollower : MonoBehaviour
 
 	private void Update()
 	{
-		if (Manager.manager.State == GameStates.Initializing) return;
-
+        if (Manager.manager.State == GameStates.Initializing  || Manager.manager.State == GameStates.Finishing || Manager.manager.State == GameStates.Ended)
+        {
+            return;
+        }
 		transform.position = _target.transform.position;
 		
 		if (_shakeDuration > 0)

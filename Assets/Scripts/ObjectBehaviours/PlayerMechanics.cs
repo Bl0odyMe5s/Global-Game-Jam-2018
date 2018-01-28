@@ -9,9 +9,7 @@ public class PlayerMechanics : MonoBehaviour {
 
     public const int PLAYER_ONE = 0;
     public const int PLAYER_TWO = 1;
-
-    private int playerType;
-
+    
     private const float CHARGE_RATE = 30, MAX_CHARGE = 120, FIRE_RANGE = 5f, MAX_PUSH_FORCE = 10;
     private float currentCharge;
 
@@ -161,17 +159,17 @@ public class PlayerMechanics : MonoBehaviour {
             soundWave.transform.position = player.transform.position;
             currentCharge = 0;
 
-            // Set the player type as shooter of the ball
-            Manager.manager.Ball.GetComponent<Ball>().Shooter = playerType;
+            Manager.manager.Ball.GetComponent<Ball>().Shooter = id;
+            // Set color of the ball's base color to the player's color
             
             // Shake screen (why am I commenting)
             camera.GetComponent<CameraFollower>().Shake(0.5f);
         }
     }
 
-    public int PlayerType
+    public int Id
     {
-        get { return playerType; }
+        get { return id; }
         set
         {
             switch(value)
@@ -184,7 +182,7 @@ public class PlayerMechanics : MonoBehaviour {
                     break;
             }
 
-            playerType = value;
+            id = value;
         }
     }
 

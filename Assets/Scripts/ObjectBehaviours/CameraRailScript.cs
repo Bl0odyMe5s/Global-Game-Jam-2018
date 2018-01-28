@@ -84,6 +84,10 @@ public class CameraRailScript : MonoBehaviour
     private IEnumerator CamPointInterpolation(float time, float timePassed, float distancePassed = 0)
     {
         yield return new WaitForEndOfFrame();
+        if (cam == null)
+        {
+            yield break;
+        }
 
         timePassed += Time.deltaTime;
         float factor;
@@ -169,7 +173,6 @@ public class CameraRailScript : MonoBehaviour
         }
         else //If arrived at the next node
         {
-            print(index + " "  + transform.childCount + "  " + direction);
             timePassed = 0; //Reset the time passed to potentially start interpolating all over again with the next next node.
             distancePassed = 0;
             if ((((index + 1 < transform.childCount && direction) || (index - 1 > 0 && !direction)) && interpolationMode == InterPolationMode.Linear) ||

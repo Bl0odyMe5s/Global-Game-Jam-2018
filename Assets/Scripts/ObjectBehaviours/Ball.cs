@@ -10,7 +10,6 @@ public class Ball : MonoBehaviour {
 
 	private float playerY = 0;
     private bool isInitialized = true;
-    private float timeLastTouch;
 
     private Rigidbody rigidBody;
     private bool reachedTop;
@@ -48,9 +47,6 @@ public class Ball : MonoBehaviour {
         if (!isInitialized && transform.position.y >= maxY) {
             reachedTop = true;
 		}
-	    
-	    // When ball doesnt get touched for set amount of seconds the round will end and give a point to the the opposite player
-	    //if (timeLastTouch != 0 && Time.timeSinceLevelLoad - timeLastTouch > Manager.manager.SecondsUntilRoundStop) FinishMatch(shooterType == 0 ? 1 : 0);
 
         // Calculate trajectory between ball and map
         Vector2 trajectory = new Vector2(mapObjectRef.transform.position.x, mapObjectRef.transform.position.z) - new Vector2(transform.position.x, transform.position.z);
@@ -58,29 +54,13 @@ public class Ball : MonoBehaviour {
         // Ball goes out of bounds
         if (trajectory.magnitude > mapObjectRef.transform.lossyScale.x)
         {
-            FinishMatch(shooterType);
+            Manager.manager.AddScore(shooterType);
         }
 	}
 
-    private void FinishMatch(int winnerType)
-    {
-        if (Manager.manager.State == GameStates.Finishing)
-            return;
+    
 
-        Manager.manager.PlayerScores[winnerType] += 1;
-        Manager.manager.State = GameStates.Finishing;
-        scoreBoard.AddScore(winnerType);
-        scoreBoard.TimerValue = Manager.manager.SecondsUntilRoundStop;
-
-        GetComponent<Rigidbody>().isKinematic = true;
-
-        Explode();
-        
-        //Reset level
-        StartCoroutine(DelayedReset());
-    }
-
-    private void Explode()
+    public void Explode()
     {
         var explodingBall = Instantiate(_explodingBall);
         explodingBall.transform.position = transform.position;
@@ -88,16 +68,9 @@ public class Ball : MonoBehaviour {
         Renderer.enabled = false;
     }
 
-    private IEnumerator DelayedReset()
-    {
-        yield return new WaitForSeconds(Manager.manager.ResetDelay);
-
-        Manager.manager.RestartLevel1();
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
-        // First contact
+        // First contact //is a pretty good movie. 
         if(isInitialized)
         {
             isInitialized = false;
@@ -106,18 +79,11 @@ public class Ball : MonoBehaviour {
 
         if(collision.collider.tag == "Terrain")
         {
-            FinishMatch(shooterType == 0 ? 1 : 0);
+            Manager.manager.AddScore(1 - shooterType);
+            // Ball is out of bounds by a hole, the shooter loses
+            
         }
-    }
 
-    public Rigidbody RigidBody
-    {
-        get { return rigidBody; }
-    }
-
-    public float PlayerY
-    {
-        set { playerY = value; }
     }
 
     public int Shooter
@@ -137,12 +103,20 @@ public class Ball : MonoBehaviour {
                     scoreBoard.TimerPanel.color = scoreBoard.PlayerColors[1];
                     break;
             }
-            
             // Set time not touched time
-            timeLastTouch = Time.timeSinceLevelLoad;
             scoreBoard.TimerValue = Manager.manager.SecondsUntilRoundStop;
 
             shooterType = value;
         }
+    }
+
+    public Rigidbody RigidBody
+    {
+        get { return rigidBody; }
+    }
+
+    public float PlayerY
+    {
+        set { playerY = value; }
     }
 }
