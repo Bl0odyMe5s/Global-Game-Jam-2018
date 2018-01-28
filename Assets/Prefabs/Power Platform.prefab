@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 112e38a0c1d291e44932ecdb4c22ac79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boostStrength: 70
+  boostStrength: 7
   mapController: {fileID: 0}
 --- !u!135 &135977986710407404
 SphereCollider:
