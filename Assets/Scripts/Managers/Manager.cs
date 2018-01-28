@@ -10,7 +10,8 @@ public class Manager : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject soundWave;
 
-    [SerializeField] int resetDelay;
+    [SerializeField] private int resetDelay;
+    [SerializeField] private int secondsUntilRoundStop;
 
     private GameStates state;
     public List<Vector3> spawnPoints;
@@ -135,7 +136,13 @@ public class Manager : MonoBehaviour
         get { return resetDelay; }
     }
 
-	public GameStates State
+    public int SecondsUntilRoundStop
+    {
+        get { return secondsUntilRoundStop; }
+        set { secondsUntilRoundStop = value; }
+    }
+
+    public GameStates State
 	{
 		get { return state; }
 		set { state = value; }
