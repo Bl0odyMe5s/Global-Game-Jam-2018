@@ -15,6 +15,7 @@ public class Ball : MonoBehaviour {
     private Rigidbody rigidBody;
     private bool reachedTop;
     private int shooterType;
+    private ScoreBoardManager scoreBoard;
 
     private GameObject mapObjectRef;
     [SerializeField] private GameObject _explodingBall;
@@ -26,6 +27,7 @@ public class Ball : MonoBehaviour {
     {
         rigidBody = GetComponent<Rigidbody>();
         Manager.manager.BallScript = GetComponent<Ball>();
+        scoreBoard = FindObjectOfType<ScoreBoardManager>();
     }
 
 
@@ -77,6 +79,8 @@ public class Ball : MonoBehaviour {
 
         Manager.manager.PlayerScores[winnerType] += 1;
         Manager.manager.State = GameStates.Finishing;
+        scoreBoard.AddScore(winnerType);
+        scoreBoard.TimerValue = Manager.manager.SecondsUntilRoundStop;
 
         GetComponent<Rigidbody>().isKinematic = true;
 
@@ -126,14 +130,17 @@ public class Ball : MonoBehaviour {
             {
                 case PlayerMechanics.PLAYER_ONE:
                     baseMaterial.color = Color.red;
+                    scoreBoard.TimerPanel.color = scoreBoard.PlayerColors[0];
                     break;
                 case PlayerMechanics.PLAYER_TWO:
                     baseMaterial.color = Color.blue;
+                    scoreBoard.TimerPanel.color = scoreBoard.PlayerColors[1];
                     break;
             }
             
             // Set time not touched time
             timeLastTouch = Time.timeSinceLevelLoad;
+            scoreBoard.TimerValue = Manager.manager.SecondsUntilRoundStop;
 
             shooterType = value;
         }
