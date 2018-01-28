@@ -9,7 +9,7 @@ public class Booster : MonoBehaviour {
     [SerializeField]
     private MapController mapController;
 
-	private void OnTriggerEnter(Collider col)
+	private void OnTriggerStay(Collider col)
 	{
 		// Add force to ball
 		Transform ball = col.transform;
@@ -19,10 +19,13 @@ public class Booster : MonoBehaviour {
 
 		Rigidbody rb = ball.GetComponent<Rigidbody> ();
 
-        // Release a random tile
-        mapController.ReleaseTile();
-
 		Vector3 direction = rb.velocity.normalized;
 		rb.AddForce (direction * boostStrength, ForceMode.Acceleration);
 	}
+
+    private void OnTriggerEnter(Collider col)
+    {
+        // Release a random tile
+        mapController.ReleaseTile();
+    }
 }
