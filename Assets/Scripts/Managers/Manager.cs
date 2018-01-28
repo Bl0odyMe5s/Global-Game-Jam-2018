@@ -91,6 +91,7 @@ public class Manager : MonoBehaviour
         int random = (int)Mathf.Round(Random.Range(0, 2));
         spawnPoints.Add(GameObject.Find("Ball Spawn 1").transform.position);
         spawnPoints.Add(GameObject.Find("Ball Spawn 2").transform.position);
+        Manager.manager.BallScript.Renderer.enabled = true;
         Ball.transform.position = spawnPoints[random];
         BallScript.PlayerY = player.transform.position.y;
         state = newState;
