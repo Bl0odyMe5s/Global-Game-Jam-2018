@@ -10,8 +10,12 @@ public class Manager : MonoBehaviour
     [SerializeField] private GameObject ball;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject soundWave;
+
+    private ScoreBoardManager scoreBoardManager;
     private const int MAX_SCORE = 10;
     private GameObject drone;
+    private bool isTouched;
+    private float timeSinceLastTouch;
 
     [SerializeField] private int resetDelay;
     [SerializeField] private int secondsUntilRoundStop;
@@ -41,6 +45,7 @@ public class Manager : MonoBehaviour
     public void SpawnLevel1()
     {
         state = GameStates.Initializing;
+        timeSinceLastTouch = 0;
         StartCoroutine(PopulateLevel1(GameStates.Introduction));
         SceneManager.LoadScene("GameScene");
     }
@@ -49,6 +54,7 @@ public class Manager : MonoBehaviour
     public void RestartLevel1()
     {
         state = GameStates.Initializing;
+        timeSinceLastTouch = 0;
         StartCoroutine(PopulateLevel1(GameStates.Restarting));
         SceneManager.LoadScene("GameScene");
     }
@@ -66,8 +72,8 @@ public class Manager : MonoBehaviour
 
         GameObject player1 = GameObject.Instantiate(player);
         GameObject player2 = GameObject.Instantiate(player);
-        player1.GetComponent<PlayerMechanics>().PlayerType = PlayerMechanics.PLAYER_ONE;
-        player2.GetComponent<PlayerMechanics>().PlayerType = PlayerMechanics.PLAYER_TWO;
+        player1.GetComponent<PlayerMechanics>().Id = PlayerMechanics.PLAYER_ONE;
+        player2.GetComponent<PlayerMechanics>().Id = PlayerMechanics.PLAYER_TWO;
         if (newState == GameStates.Introduction)
         {
             player2.GetComponent<PlayerMechanics>().camera.GetComponent<CameraFollower>().enabled = false;
@@ -111,6 +117,7 @@ public class Manager : MonoBehaviour
         drone.transform.position = spawnPoints[random];
         BallScript.PlayerY = player.transform.position.y;
         state = newState;
+        scoreBoardManager = FindObjectOfType<ScoreBoardManager>();
 
         if (newState != GameStates.Introduction)
         {
@@ -171,7 +178,12 @@ public class Manager : MonoBehaviour
 
         state = GameStates.Finishing;
 
+        BallScript.Explode();
+
+        yield return new WaitForSeconds(resetDelay);
+
         PlayerScores[winnerId] += 1;
+        scoreBoardManager.AddScore(winnerId);
         if (PlayerScores[winnerId] >= MAX_SCORE)
         {
             state = GameStates.Ended;
@@ -207,6 +219,13 @@ public class Manager : MonoBehaviour
                 SpawnLevel1();
             }
         }
+
+        else if (State == GameStates.Playing)
+        {
+            timeSinceLastTouch += Time.deltaTime;
+            //When ball doesnt get touched for set amount of seconds the round will end and give a point to the the opposite player
+            if (timeSinceLastTouch != 0 && Time.timeSinceLevelLoad - timeSinceLastTouch > SecondsUntilRoundStop) FinishMatch(BallScript.Shooter);
+        }
     }
 
     public List<int> PlayerScores
@@ -238,5 +257,11 @@ public class Manager : MonoBehaviour
     public GameObject SoundWave
     {
         get { return soundWave; }
+    }
+
+    public bool IsTouched
+    {
+        get { return isTouched; }
+        set { isTouched = value; }
     }
 }
