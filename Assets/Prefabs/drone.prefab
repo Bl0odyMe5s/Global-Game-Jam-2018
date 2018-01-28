@@ -286,4 +286,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flySpeed: 0.1
-  flyDuration: 4
+  flyDuration: 2
+  active: 0

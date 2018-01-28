@@ -15,13 +15,11 @@ public class DroneController : MonoBehaviour {
 
         transform.position += Vector3.up * flySpeed;
 
-        StartCoroutine(StopMoving());
+        Invoke("StopMoving", flyDuration);
 	}
 
-    private IEnumerator StopMoving()
+    private void StopMoving()
     {
-        yield return new WaitForSeconds(flyDuration);
-
         active = false;
     }
 

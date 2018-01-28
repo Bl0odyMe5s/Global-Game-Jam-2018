@@ -6,7 +6,7 @@ public class MapController : MonoBehaviour {
 
     public int maxTilesToRelease = 0;
 	public float releaseProbability = 0;
-    public int tileDestroyTime = 0;
+    public int tileDestroyTime = 3;
 
     [SerializeField]
     private Transform partParent;
@@ -44,9 +44,15 @@ public class MapController : MonoBehaviour {
                 // Release tile
                 child.parent = null;
                 Rigidbody rb = child.gameObject.AddComponent<Rigidbody>();
+                MeshCollider mc = child.gameObject.GetComponent<MeshCollider>();
+                Destroy(mc);
+
+                // Player particles
+                child.GetComponentInChildren<ParticleSystem>().Play();
+
                 tileCount++;
 
-                // StartCoroutine(DelayedDestroy(child));
+                StartCoroutine(DelayedDestroy(child));
 
                 return;
             }
