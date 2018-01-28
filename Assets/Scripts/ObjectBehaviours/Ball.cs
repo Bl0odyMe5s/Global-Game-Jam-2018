@@ -104,6 +104,7 @@ public class Ball : MonoBehaviour {
                     break;
             }
             // Set time not touched time
+            Manager.manager.TimeSinceLastTouch = Time.timeSinceLevelLoad;
             scoreBoard.TimerValue = Manager.manager.SecondsUntilRoundStop;
 
             shooterType = value;

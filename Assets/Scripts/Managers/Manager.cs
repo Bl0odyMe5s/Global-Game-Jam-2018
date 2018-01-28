@@ -15,7 +15,7 @@ public class Manager : MonoBehaviour
     private const int MAX_SCORE = 10;
     private GameObject drone;
     private bool isTouched;
-    private float timeSinceLastTouch;
+    [SerializeField] private float timeSinceLastTouch;
 
     [SerializeField] private int resetDelay;
     [SerializeField] private int secondsUntilRoundStop;
@@ -209,11 +209,11 @@ public class Manager : MonoBehaviour
             RestartLevel1();
         }
     }
-    private void Update()
+    private void FixedUpdate()
     {
         if (state == GameStates.Ended)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space))
             {
                 StopAllCoroutines();
                 SpawnLevel1();
@@ -222,9 +222,8 @@ public class Manager : MonoBehaviour
 
         else if (State == GameStates.Playing)
         {
-            timeSinceLastTouch += Time.deltaTime;
             //When ball doesnt get touched for set amount of seconds the round will end and give a point to the the opposite player
-            if (timeSinceLastTouch != 0 && Time.timeSinceLevelLoad - timeSinceLastTouch > SecondsUntilRoundStop) FinishMatch(BallScript.Shooter);
+            if (timeSinceLastTouch != 0 && Time.timeSinceLevelLoad - timeSinceLastTouch > SecondsUntilRoundStop) StartCoroutine(FinishMatch(BallScript.Shooter == 0 ? 1 : 0));
         }
     }
 
@@ -263,5 +262,11 @@ public class Manager : MonoBehaviour
     {
         get { return isTouched; }
         set { isTouched = value; }
+    }
+
+    public float TimeSinceLastTouch
+    {
+        get { return timeSinceLastTouch; }
+        set { timeSinceLastTouch = value; }
     }
 }
