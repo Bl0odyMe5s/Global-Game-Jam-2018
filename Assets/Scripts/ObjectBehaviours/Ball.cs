@@ -40,16 +40,6 @@ public class Ball : MonoBehaviour {
 
 	    Renderer = GetComponent<MeshRenderer>();
 	}
-    
-    public Rigidbody RigidBody
-    {
-        get { return rigidBody; }
-    }
-
-    public float PlayerY
-    {
-        set { playerY = value; }
-    }
 
 	private void FixedUpdate()
 	{
@@ -60,7 +50,7 @@ public class Ball : MonoBehaviour {
 		}
 	    
 	    // When ball doesnt get touched for set amount of seconds the round will end and give a point to the the opposite player
-	    if (timeLastTouch != 0 && Time.timeSinceLevelLoad - timeLastTouch > Manager.manager.SecondsUntilRoundStop) FinishMatch(shooterType == 0 ? 1 : 0);
+	    //if (timeLastTouch != 0 && Time.timeSinceLevelLoad - timeLastTouch > Manager.manager.SecondsUntilRoundStop) FinishMatch(shooterType == 0 ? 1 : 0);
 
         // Calculate trajectory between ball and map
         Vector2 trajectory = new Vector2(mapObjectRef.transform.position.x, mapObjectRef.transform.position.z) - new Vector2(transform.position.x, transform.position.z);
@@ -118,6 +108,16 @@ public class Ball : MonoBehaviour {
         {
             FinishMatch(shooterType == 0 ? 1 : 0);
         }
+    }
+
+    public Rigidbody RigidBody
+    {
+        get { return rigidBody; }
+    }
+
+    public float PlayerY
+    {
+        set { playerY = value; }
     }
 
     public int Shooter
