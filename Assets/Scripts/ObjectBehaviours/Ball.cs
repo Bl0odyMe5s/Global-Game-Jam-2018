@@ -82,6 +82,8 @@ public class Ball : MonoBehaviour {
         Manager.manager.PlayerScores[winnerType] += 1;
         Manager.manager.State = GameStates.Finishing;
 
+        GetComponent<Rigidbody>().isKinematic = true;
+
         //Reset level
         StartCoroutine(DelayedReset());
     }
