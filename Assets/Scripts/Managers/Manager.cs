@@ -47,6 +47,7 @@ public class Manager : MonoBehaviour
         state = GameStates.Initializing;
         timeSinceLastTouch = 0;
         StartCoroutine(PopulateLevel1(GameStates.Introduction));
+        PlayerScores.Clear();
         SceneManager.LoadScene("GameScene");
     }
 
@@ -189,13 +190,13 @@ public class Manager : MonoBehaviour
             state = GameStates.Ended;
             if (winnerId == 0)
             {
-                GameObject.FindGameObjectWithTag("LoserImage").transform.position = new Vector3(Screen.width / 2, Screen.height * 0.75f, 0);
-                GameObject.FindGameObjectWithTag("WinnerImage").transform.position = new Vector3(Screen.width / 2, Screen.height * 0.25f, 0);
+                GameObject.FindGameObjectWithTag("LoserImage").transform.position = new Vector3(Screen.width / 2, Screen.height * 0.25f, 0);
+                GameObject.FindGameObjectWithTag("WinnerImage").transform.position = new Vector3(Screen.width / 2, Screen.height * 0.75f, 0);
             }
             else
             {
-                GameObject.FindGameObjectWithTag("LoserImage").transform.position = new Vector3(Screen.width / 2, Screen.height * 0.25f, 0);
-                GameObject.FindGameObjectWithTag("WinnerImage").transform.position = new Vector3(Screen.width / 2, Screen.height * 0.75f, 0);
+                GameObject.FindGameObjectWithTag("LoserImage").transform.position = new Vector3(Screen.width / 2, Screen.height * 0.75f, 0);
+                GameObject.FindGameObjectWithTag("WinnerImage").transform.position = new Vector3(Screen.width / 2, Screen.height * 0.25f, 0);
             }
             GameObject.FindGameObjectWithTag("LoserImage").GetComponent<Image>().enabled = true;
             GameObject.FindGameObjectWithTag("WinnerImage").GetComponent<Image>().enabled = true;
