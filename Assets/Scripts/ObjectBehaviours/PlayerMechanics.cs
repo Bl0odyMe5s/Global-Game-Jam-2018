@@ -165,7 +165,7 @@ public class PlayerMechanics : MonoBehaviour {
             Manager.manager.Ball.GetComponent<Ball>().Shooter = playerType;
             
             // Shake screen (why am I commenting)
-            camera.GetComponent<CameraShaker>().Shake(0.5f);
+            camera.GetComponent<CameraFollower>().Shake(0.5f);
         }
     }
 
