@@ -23,8 +23,12 @@ public class PlayerMechanics : MonoBehaviour {
     public float velocity, accelerationRate, dampening;
     public Material[] materialList;
     public Camera camera;
+    private GameObject playerSounds;
+    private AudioSource chargeSound;
+    private AudioSource shootSound;
     [SerializeField] private float chargeMovementspeed;
     [SerializeField] private float minCharge, maxCharge, chargeSpeed;
+    [SerializeField] private GameObject playerSoundsPrefab;
 
     private Color color;
 
@@ -32,6 +36,7 @@ public class PlayerMechanics : MonoBehaviour {
     {
         var playerObject = new PlayerObject(this.transform.name, gameObject);
         camera = player.transform.GetChild(0).transform.GetChild(0).GetComponent<Camera>();
+        playerSounds = Instantiate(playerSoundsPrefab);
     }
 
 	public float minParticleSpeed;
@@ -41,9 +46,12 @@ public class PlayerMechanics : MonoBehaviour {
 
 	// Use this for initialization
 	public void CustomStart () {
+        chargeSound = playerSounds.GetComponents<AudioSource>()[2];
+
         player.GetComponent<MeshRenderer>().material = materialList[id];
         if (id == 0)
         {
+            shootSound = playerSounds.GetComponents<AudioSource>()[0];
             camera.rect = new Rect(camera.rect.x, 0.5f, camera.rect.width, 0.5f);
             leftKey = Manager.manager.keyCodes[0];
             rightKey = Manager.manager.keyCodes[1];
@@ -55,6 +63,7 @@ public class PlayerMechanics : MonoBehaviour {
         
         else
         {
+            shootSound = playerSounds.GetComponents<AudioSource>()[1];
             camera.rect = new Rect(camera.rect.x, 0.0f, camera.rect.width, 0.5f);
             leftKey = Manager.manager.keyCodes[3];
             rightKey = Manager.manager.keyCodes[4];
@@ -123,6 +132,7 @@ public class PlayerMechanics : MonoBehaviour {
 
     private void ChargeShot()
     {
+        if (!chargeSound.isPlaying) chargeSound.Play();
         playerState = PlayerStates.Charging;
         velocity = Mathf.Clamp(velocity, -chargeMovementspeed, chargeMovementspeed);
 
@@ -139,6 +149,8 @@ public class PlayerMechanics : MonoBehaviour {
     private void FireShot()
     {
         var shootColliderBehaviour = shootCollider.GetComponent<ShootColliderBehaviour>();
+
+        if (chargeSound.isPlaying) chargeSound.Stop();
 
         // Return if the ball is above the player
         if (Manager.manager.Ball.transform.position.y > transform.position.y)
@@ -165,6 +177,9 @@ public class PlayerMechanics : MonoBehaviour {
             
             // Shake screen (why am I commenting)
             camera.GetComponent<CameraFollower>().Shake(0.5f);
+
+            // Play sound
+            if(!shootSound.isPlaying) shootSound.Play();
         }
     }
 

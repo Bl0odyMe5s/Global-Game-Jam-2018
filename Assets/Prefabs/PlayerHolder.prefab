@@ -392,9 +392,11 @@ MonoBehaviour:
   - {fileID: 2100000, guid: fe7ae9eea1c307c48a2182bae1b280e2, type: 2}
   camera: {fileID: 0}
   chargeMovementspeed: 0.2
-  minCharge: 4
+  minCharge: 7
   maxCharge: 15
-  chargeSpeed: 10
+  chargeSpeed: 2.6666667
+  playerSoundsPrefab: {fileID: 1735557465535326, guid: f69f2767ae48db0498b00c8cacdf4763,
+    type: 2}
   minParticleSpeed: 0
   maxParticleSpeed: 0
   particlesRight: {fileID: 198878071092317368}

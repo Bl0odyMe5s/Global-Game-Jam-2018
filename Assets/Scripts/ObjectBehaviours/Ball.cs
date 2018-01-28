@@ -62,13 +62,14 @@ public class Ball : MonoBehaviour {
 
     public void Explode()
     {
+        Manager.manager.Sounds[1].Play();
         var explodingBall = Instantiate(_explodingBall);
         explodingBall.transform.position = transform.position;
 
         Renderer.enabled = false;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         // First contact //is a pretty good movie. 
         if(isInitialized)

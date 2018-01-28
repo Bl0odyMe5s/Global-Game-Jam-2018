@@ -27,5 +27,6 @@ public class Booster : MonoBehaviour {
     {
         // Release a random tile
         mapController.ReleaseTile();
+        Manager.manager.Sounds[2].Play();
     }
 }

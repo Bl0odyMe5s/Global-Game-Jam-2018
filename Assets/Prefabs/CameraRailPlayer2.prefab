@@ -582,7 +582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75f0fe2e0b80d834a81454234f824e19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fov: 60
+  fov: 35
   timeToNeighbour: 1
   nextNeighbourPosition: {x: 2.74, y: 0.1, z: -12.53}
   linear: 0
@@ -679,7 +679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75f0fe2e0b80d834a81454234f824e19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fov: 60
+  fov: 35
   timeToNeighbour: 1
   nextNeighbourPosition: {x: 0.07, y: -1.03, z: 9.2}
   linear: 0
@@ -696,7 +696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75f0fe2e0b80d834a81454234f824e19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fov: 60
+  fov: 35
   timeToNeighbour: 1
   nextNeighbourPosition: {x: 0.06999996, y: -1.03, z: 10.86}
   linear: 0
@@ -730,7 +730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75f0fe2e0b80d834a81454234f824e19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fov: 60
+  fov: 35
   timeToNeighbour: 1
   nextNeighbourPosition: {x: 0.06999996, y: -1.03, z: 9.98}
   linear: 0

@@ -21,6 +21,8 @@ public class Manager : MonoBehaviour
     [SerializeField] private int secondsUntilRoundStop;
 
     private GameStates state;
+    public List<AudioSource> Sounds { get; set; }
+
     public List<Vector3> spawnPoints;
     public static Manager manager;
     public KeyCode[] keyCodes;
@@ -33,11 +35,14 @@ public class Manager : MonoBehaviour
 	
 	private void Awake () {
 		DontDestroyOnLoad(gameObject);
-
+        Sounds = new List<AudioSource>();
         manager = this;
 		PlayerObjects = new List<GameObject>();
         playerScores = new List<int> { 0,0 };
         spawnPoints = new List<Vector3>();
+        Sounds.AddRange(GetComponents<AudioSource>());
+
+        Sounds[0].Play();
 		
 		InitializeGame();
 	}
@@ -99,10 +104,10 @@ public class Manager : MonoBehaviour
 
         Ball = GameObject.Find("Ball");
         drone = GameObject.Find("drone");
-        if (newState == GameStates.Introduction)
-        {
+        //if (newState == GameStates.Introduction)
+        //{
             Ball.GetComponent<Rigidbody>().isKinematic = true;
-        }
+        //}
         int random = (int)Mathf.Round(Random.Range(0, 2));
         spawnPoints.Add(GameObject.Find("Ball Spawn 1").transform.position);
         spawnPoints.Add(GameObject.Find("Ball Spawn 2").transform.position);
@@ -160,7 +165,6 @@ public class Manager : MonoBehaviour
             if (playerMech.Id == shooterType)
             {
                 // Winner
-                Debug.Log(playerMech.Id + " won the game!");
                 StartCoroutine(FinishMatch(playerMech.Id));
             }
             else
