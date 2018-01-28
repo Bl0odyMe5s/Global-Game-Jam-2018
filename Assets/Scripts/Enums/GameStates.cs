@@ -5,6 +5,7 @@
     Slowed,
     SpedUp,
     Introduction,
+    Restarting,
     Finishing,
     Ended
 }

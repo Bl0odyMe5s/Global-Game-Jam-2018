@@ -13,6 +13,7 @@ public class Manager : MonoBehaviour
     private const int MAX_SCORE = 10;
    [SerializeField] int resetDelay;
 
+    [SerializeField]
     private GameStates state;
     public List<Vector3> spawnPoints;
     public static Manager manager;
@@ -37,22 +38,23 @@ public class Manager : MonoBehaviour
 
     public void SpawnLevel1()
     {
-        SceneManager.LoadScene("GameScene");
         state = GameStates.Initializing;
         StartCoroutine(PopulateLevel1(GameStates.Introduction));
+        SceneManager.LoadScene("GameScene");
     }
 
 
     public void RestartLevel1()
     {
-        SceneManager.LoadScene("GameScene");
         state = GameStates.Initializing;
-        StartCoroutine(PopulateLevel1(GameStates.Playing));
+        StartCoroutine(PopulateLevel1(GameStates.Restarting));
+        SceneManager.LoadScene("GameScene");
     }
 
     private IEnumerator PopulateLevel1(GameStates newState)
     {
         yield return new WaitUntil(() => SceneManager.GetActiveScene().name == "GameScene");
+        state = newState;
 
         if (PlayerObjects.Count > 0)
         {
@@ -71,11 +73,10 @@ public class Manager : MonoBehaviour
         }
         else
         {
-            GameObject.Find("CameraRailPlayer1").GetComponent<CameraRailScript>().enabled = false;
-            GameObject.Find("CameraRailPlayer2").GetComponent<CameraRailScript>().enabled = false;
             player2.GetComponent<PlayerMechanics>().camera.GetComponent<CameraFollower>().enabled = true;
             player1.GetComponent<PlayerMechanics>().camera.GetComponent<CameraFollower>().enabled = true;
-            yield return new WaitForSeconds(Manager.manager.ResetDelay);
+            GameObject.Find("CameraRailPlayer1").GetComponent<CameraRailScript>().enabled = false;
+            GameObject.Find("CameraRailPlayer2").GetComponent<CameraRailScript>().enabled = false;
         }
         PlayerObjects.Add(player1);
         PlayerObjects.Add(player2);
@@ -86,19 +87,16 @@ public class Manager : MonoBehaviour
         PlayerObjects[1].GetComponent<PlayerMechanics>().CustomStart();
 
         Ball = GameObject.Find("Ball");
-        if (newState == GameStates.Introduction)
-        {
-            Ball.GetComponent<Rigidbody>().isKinematic = true;
-        }
+        Ball.GetComponent<Rigidbody>().isKinematic = true;
         int random = (int)Mathf.Round(Random.Range(0, 2));
         spawnPoints.Add(GameObject.Find("Ball Spawn 1").transform.position);
         spawnPoints.Add(GameObject.Find("Ball Spawn 2").transform.position);
         Ball.transform.position = spawnPoints[random];
         BallScript.PlayerY = player.transform.position.y;
-        state = newState;
         if (newState != GameStates.Introduction)
         {
             StartCoroutine(StartLevel1());
+            yield return new WaitForSeconds(Manager.manager.ResetDelay);
         }
        
     }
