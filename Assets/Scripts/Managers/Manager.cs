@@ -9,6 +9,7 @@ public class Manager : MonoBehaviour
     [SerializeField] private GameObject ball;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject soundWave;
+    private GameObject drone;
 
     [SerializeField] private int resetDelay;
     [SerializeField] private int secondsUntilRoundStop;
@@ -85,6 +86,7 @@ public class Manager : MonoBehaviour
         PlayerObjects[1].GetComponent<PlayerMechanics>().CustomStart();
 
         Ball = GameObject.Find("Ball");
+        drone = GameObject.Find("drone");
         if (newState == GameStates.Introduction)
         {
             Ball.GetComponent<Rigidbody>().isKinematic = true;
@@ -100,8 +102,10 @@ public class Manager : MonoBehaviour
         }
 
         Ball.transform.position = spawnPoints[random];
+        drone.transform.position = spawnPoints[random];
         BallScript.PlayerY = player.transform.position.y;
         state = newState;
+
         if (newState != GameStates.Introduction)
         {
             StartCoroutine(StartLevel1());
@@ -120,6 +124,7 @@ public class Manager : MonoBehaviour
 
         yield return new WaitForSeconds(1);
         state = GameStates.Playing;
+        drone.GetComponent<DroneController>().Fly();
         Ball.GetComponent<Rigidbody>().isKinematic = false;
         Ball.GetComponent<Rigidbody>().AddForce(Vector3.down * 3f, ForceMode.Impulse);
     }
