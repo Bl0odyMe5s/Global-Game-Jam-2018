@@ -18,6 +18,9 @@ public class Ball : MonoBehaviour {
     private ScoreBoardManager scoreBoard;
 
     private GameObject mapObjectRef;
+    [SerializeField] private GameObject _explodingBall;
+    
+    public MeshRenderer Renderer { get; set; }
 
 	// Use this for initialization
     private void Awake()
@@ -34,6 +37,8 @@ public class Ball : MonoBehaviour {
         mapObjectRef = GameObject.Find("map");
 
         rigidBody.AddForce (Vector3.down * startForce, ForceMode.Impulse);
+
+	    Renderer = GetComponent<MeshRenderer>();
 	}
 
 	private void FixedUpdate()
@@ -69,8 +74,18 @@ public class Ball : MonoBehaviour {
 
         GetComponent<Rigidbody>().isKinematic = true;
 
+        Explode();
+        
         //Reset level
         StartCoroutine(DelayedReset());
+    }
+
+    private void Explode()
+    {
+        var explodingBall = Instantiate(_explodingBall);
+        explodingBall.transform.position = transform.position;
+
+        Renderer.enabled = false;
     }
 
     private IEnumerator DelayedReset()

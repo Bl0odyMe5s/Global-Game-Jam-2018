@@ -101,6 +101,7 @@ public class Manager : MonoBehaviour
             Ball.GetComponent<Rigidbody>().isKinematic = false;
         }
 
+        Manager.manager.BallScript.Renderer.enabled = true;
         Ball.transform.position = spawnPoints[random];
         drone.transform.position = spawnPoints[random];
         BallScript.PlayerY = player.transform.position.y;
