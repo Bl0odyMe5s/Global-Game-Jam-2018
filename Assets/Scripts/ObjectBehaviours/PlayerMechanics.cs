@@ -161,7 +161,7 @@ public class PlayerMechanics : MonoBehaviour {
             soundWave.transform.position = player.transform.position;
             currentCharge = 0;
 
-            // Set color of the ball's base color to the player's color
+            // Set the player type as shooter of the ball
             Manager.manager.Ball.GetComponent<Ball>().Shooter = playerType;
         }
     }

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: b08c8c6dc28394b4a9e87afe84868f8c
-timeCreated: 1517046671
+guid: 446111408e01066479bb3298c3a61caf
+timeCreated: 1517100681
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -8,12 +8,9 @@ ModelImporter:
     100000: //RootNode
     400000: //RootNode
     2100000: Material
-    2100002: booster_base
-    2100004: booster_accent
     2300000: //RootNode
     3300000: //RootNode
     4300000: Cube
-    4300002: Circle_002
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}

@@ -9,8 +9,10 @@ public class Manager : MonoBehaviour
     [SerializeField] private GameObject ball;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject soundWave;
+    private GameObject drone;
 
-    [SerializeField] int resetDelay;
+    [SerializeField] private int resetDelay;
+    [SerializeField] private int secondsUntilRoundStop;
 
     private GameStates state;
     public List<Vector3> spawnPoints;
@@ -61,6 +63,8 @@ public class Manager : MonoBehaviour
 
         GameObject player1 = GameObject.Instantiate(player);
         GameObject player2 = GameObject.Instantiate(player);
+        player1.GetComponent<PlayerMechanics>().PlayerType = PlayerMechanics.PLAYER_ONE;
+        player2.GetComponent<PlayerMechanics>().PlayerType = PlayerMechanics.PLAYER_TWO;
         if (newState == GameStates.Introduction)
         {
             player2.GetComponent<PlayerMechanics>().camera.GetComponent<CameraFollower>().enabled = false;
@@ -82,6 +86,7 @@ public class Manager : MonoBehaviour
         PlayerObjects[1].GetComponent<PlayerMechanics>().CustomStart();
 
         Ball = GameObject.Find("Ball");
+        drone = GameObject.Find("drone");
         if (newState == GameStates.Introduction)
         {
             Ball.GetComponent<Rigidbody>().isKinematic = true;
@@ -89,9 +94,18 @@ public class Manager : MonoBehaviour
         int random = (int)Mathf.Round(Random.Range(0, 2));
         spawnPoints.Add(GameObject.Find("Ball Spawn 1").transform.position);
         spawnPoints.Add(GameObject.Find("Ball Spawn 2").transform.position);
+        
+        if(newState == GameStates.Playing)
+        {
+            Ball.GetComponent<Rigidbody>().isKinematic = true;
+            Ball.GetComponent<Rigidbody>().isKinematic = false;
+        }
+
         Ball.transform.position = spawnPoints[random];
+        drone.transform.position = spawnPoints[random];
         BallScript.PlayerY = player.transform.position.y;
         state = newState;
+
         if (newState != GameStates.Introduction)
         {
             StartCoroutine(StartLevel1());
@@ -110,6 +124,7 @@ public class Manager : MonoBehaviour
 
         yield return new WaitForSeconds(1);
         state = GameStates.Playing;
+        drone.GetComponent<DroneController>().Fly();
         Ball.GetComponent<Rigidbody>().isKinematic = false;
         Ball.GetComponent<Rigidbody>().AddForce(Vector3.down * 3f, ForceMode.Impulse);
     }
@@ -135,7 +150,13 @@ public class Manager : MonoBehaviour
         get { return resetDelay; }
     }
 
-	public GameStates State
+    public int SecondsUntilRoundStop
+    {
+        get { return secondsUntilRoundStop; }
+        set { secondsUntilRoundStop = value; }
+    }
+
+    public GameStates State
 	{
 		get { return state; }
 		set { state = value; }
