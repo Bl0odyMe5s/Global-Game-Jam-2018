@@ -47,7 +47,7 @@ public class Manager : MonoBehaviour
         state = GameStates.Initializing;
         timeSinceLastTouch = 0;
         StartCoroutine(PopulateLevel1(GameStates.Introduction));
-        PlayerScores.Clear();
+        playerScores = new List<int> { 0, 0 };
         SceneManager.LoadScene("GameScene");
     }
 

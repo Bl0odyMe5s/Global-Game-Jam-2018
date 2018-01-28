@@ -52,7 +52,7 @@ public class Ball : MonoBehaviour {
         Vector2 trajectory = new Vector2(mapObjectRef.transform.position.x, mapObjectRef.transform.position.z) - new Vector2(transform.position.x, transform.position.z);
         
         // Ball goes out of bounds
-        if (trajectory.magnitude > mapObjectRef.transform.lossyScale.x)
+        if (trajectory.magnitude > mapObjectRef.transform.lossyScale.x && reachedTop)
         {
             Manager.manager.AddScore(shooterType);
         }

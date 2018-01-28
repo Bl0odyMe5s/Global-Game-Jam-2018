@@ -147,7 +147,7 @@ MonoBehaviour:
   resetDelay: 3
   secondsUntilRoundStop: 10
   spawnPoints: []
-  keyCodes: 610000006400000077000000140100001301000012010000
+  keyCodes: 610000006400000077000000140100001301000011010000
   playerScores: 
 --- !u!4 &339889520
 Transform:
