@@ -139,7 +139,9 @@ public class Manager : MonoBehaviour
 
         yield return new WaitForSeconds(1);
         state = GameStates.Playing;
+
         drone.GetComponent<DroneController>().Fly();
+
         Ball.GetComponent<Rigidbody>().isKinematic = false;
         Ball.GetComponent<Rigidbody>().AddForce(Vector3.down * 5f, ForceMode.Impulse);
     }
