@@ -126,7 +126,7 @@ public class Manager : MonoBehaviour
         state = GameStates.Playing;
         drone.GetComponent<DroneController>().Fly();
         Ball.GetComponent<Rigidbody>().isKinematic = false;
-        Ball.GetComponent<Rigidbody>().AddForce(Vector3.down * 3f, ForceMode.Impulse);
+        Ball.GetComponent<Rigidbody>().AddForce(Vector3.down * 5f, ForceMode.Impulse);
     }
 
 
