@@ -1,16 +1,33 @@
 fileFormatVersion: 2
-guid: 9255245e67eec3a43981844fd3590a9f
-timeCreated: 1517106319
+guid: 9e1d9654fc2d33b4e87cd844e4d04560
+timeCreated: 1517100682
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Cylinder
+    100004: Cylinder_001
+    100006: Cylinder_002
     400000: //RootNode
+    400002: Cylinder
+    400004: Cylinder_001
+    400006: Cylinder_002
     2100000: unnamed
+    2100002: LedMaterial
+    2100004: WingMaterial
+    2100006: DroneMaterial
     2300000: //RootNode
+    2300002: Cylinder
+    2300004: Cylinder_001
+    2300006: Cylinder_002
     3300000: //RootNode
+    3300002: Cylinder
+    3300004: Cylinder_001
+    3300006: Cylinder_002
     4300000: Cylinder
+    4300002: Cylinder_002
+    4300004: Cylinder_001
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}
