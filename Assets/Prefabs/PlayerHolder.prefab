@@ -392,9 +392,9 @@ MonoBehaviour:
   - {fileID: 2100000, guid: fe7ae9eea1c307c48a2182bae1b280e2, type: 2}
   camera: {fileID: 0}
   chargeMovementspeed: 0.2
-  minCharge: 2
-  maxCharge: 10
-  chargeSpeed: 3
+  minCharge: 4
+  maxCharge: 15
+  chargeSpeed: 10
   minParticleSpeed: 0
   maxParticleSpeed: 0
   particlesRight: {fileID: 198878071092317368}
