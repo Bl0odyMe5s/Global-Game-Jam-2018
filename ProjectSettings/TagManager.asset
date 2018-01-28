@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ball
   - Terrain
+  - LoserImage
+  - WinnerImage
   layers:
   - Default
   - TransparentFX

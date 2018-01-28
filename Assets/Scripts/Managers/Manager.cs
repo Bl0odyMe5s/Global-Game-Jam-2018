@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class Manager : MonoBehaviour
 {
     [SerializeField] private GameObject ball;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject soundWave;
-
-    [SerializeField] int resetDelay;
+    private const int MAX_SCORE = 10;
+   [SerializeField] int resetDelay;
 
     private GameStates state;
     public List<Vector3> spawnPoints;
@@ -71,7 +72,10 @@ public class Manager : MonoBehaviour
         else
         {
             GameObject.Find("CameraRailPlayer1").GetComponent<CameraRailScript>().enabled = false;
-            GameObject.Find("CameraRailPlayer2").GetComponent<CameraRailScript>().enabled = false; 
+            GameObject.Find("CameraRailPlayer2").GetComponent<CameraRailScript>().enabled = false;
+            player2.GetComponent<PlayerMechanics>().camera.GetComponent<CameraFollower>().enabled = true;
+            player1.GetComponent<PlayerMechanics>().camera.GetComponent<CameraFollower>().enabled = true;
+            yield return new WaitForSeconds(Manager.manager.ResetDelay);
         }
         PlayerObjects.Add(player1);
         PlayerObjects.Add(player2);
@@ -119,6 +123,73 @@ public class Manager : MonoBehaviour
 		state = GameStates.Playing;
 		SceneManager.LoadScene("MenuScene");
 	}
+
+    public void AddScore(int shooterType)
+    {
+        GameObject.Destroy(Ball);
+        // Player who shot the ball, wins
+        foreach (GameObject player in PlayerObjects)
+        {
+            PlayerMechanics playerMech = player.GetComponent<PlayerMechanics>();
+            if (playerMech.Id == shooterType)
+            {
+                // Winner
+                Debug.Log(playerMech.Id + " won the game!");
+                StartCoroutine(FinishMatch(playerMech.Id));
+            }
+            else
+            {
+                // Loser
+            }
+        }
+    }
+
+    private IEnumerator FinishMatch(int winnerId)
+    {
+        if (state == GameStates.Finishing)
+        {
+            yield break;
+        }
+
+        state = GameStates.Finishing;
+
+        PlayerScores[winnerId] += 1;
+        if (PlayerScores[winnerId] >= MAX_SCORE)
+        {
+            state = GameStates.Ended;
+            if (winnerId == 0)
+            {
+                GameObject.FindGameObjectWithTag("LoserImage").transform.position = new Vector3(Screen.width / 2, Screen.height * 0.75f, 0);
+                GameObject.FindGameObjectWithTag("WinnerImage").transform.position = new Vector3(Screen.width / 2, Screen.height * 0.25f, 0);
+            }
+            else
+            {
+                GameObject.FindGameObjectWithTag("LoserImage").transform.position = new Vector3(Screen.width / 2, Screen.height * 0.25f, 0);
+                GameObject.FindGameObjectWithTag("WinnerImage").transform.position = new Vector3(Screen.width / 2, Screen.height * 0.75f, 0);
+            }
+            GameObject.FindGameObjectWithTag("LoserImage").GetComponent<Image>().enabled = true;
+            GameObject.FindGameObjectWithTag("WinnerImage").GetComponent<Image>().enabled = true;
+            yield return new WaitForSeconds(15);
+            SpawnLevel1();
+            //SceneManager.LoadScene("EndScreen");
+        }
+        else
+        {
+            //Reset level
+            RestartLevel1();
+        }
+    }
+    private void Update()
+    {
+        if (state == GameStates.Ended)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                StopAllCoroutines();
+                SpawnLevel1();
+            }
+        }
+    }
 
     public List<int> PlayerScores
     {

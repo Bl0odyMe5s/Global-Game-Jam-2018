@@ -12,7 +12,7 @@ public class CameraFollower : MonoBehaviour
 
 	private void Update()
 	{
-        if (Manager.manager.State == GameStates.Initializing)
+        if (Manager.manager.State == GameStates.Initializing  || Manager.manager.State == GameStates.Finishing || Manager.manager.State == GameStates.Ended)
         {
             return;
         }

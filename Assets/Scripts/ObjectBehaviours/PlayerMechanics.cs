@@ -9,9 +9,7 @@ public class PlayerMechanics : MonoBehaviour {
 
     public const int PLAYER_ONE = 0;
     public const int PLAYER_TWO = 1;
-
-    private int playerType;
-
+    
     private const float CHARGE_RATE = 30, MAX_CHARGE = 120, FIRE_RANGE = 5f, MAX_PUSH_FORCE = 10;
     private float currentCharge;
 
@@ -162,13 +160,13 @@ public class PlayerMechanics : MonoBehaviour {
             currentCharge = 0;
 
             // Set color of the ball's base color to the player's color
-            Manager.manager.Ball.GetComponent<Ball>().Shooter = playerType;
+            Manager.manager.Ball.GetComponent<Ball>().Shooter = id;
         }
     }
 
-    public int PlayerType
+    public int Id
     {
-        get { return playerType; }
+        get { return id; }
         set
         {
             switch(value)
@@ -181,7 +179,7 @@ public class PlayerMechanics : MonoBehaviour {
                     break;
             }
 
-            playerType = value;
+            id = value;
         }
     }
 

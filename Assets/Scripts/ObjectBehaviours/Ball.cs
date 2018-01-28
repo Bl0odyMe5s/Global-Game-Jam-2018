@@ -57,45 +57,16 @@ public class Ball : MonoBehaviour {
         // Ball goes out of bounds
         if (trajectory.magnitude > mapObjectRef.transform.lossyScale.x)
         {
-            // Player who shot the ball, wins
-            foreach(GameObject player in Manager.manager.PlayerObjects)
-            {
-                PlayerMechanics playerMech = player.GetComponent<PlayerMechanics>();
-                if (playerMech.PlayerType == shooterType)
-                {
-                    // Winner
-                    Debug.Log(playerMech.PlayerType + " won the game!");
-                    FinishMatch(playerMech.PlayerType);
-                } else
-                {
-                    // Loser
-                }
-            }
+            Manager.manager.AddScore(shooterType);
         }
 	}
 
-    private void FinishMatch(int winnerType)
-    {
-        if (Manager.manager.State == GameStates.Finishing)
-            return;
+    
 
-        Manager.manager.PlayerScores[winnerType] += 1;
-        Manager.manager.State = GameStates.Finishing;
-
-        //Reset level
-        StartCoroutine(DelayedReset());
-    }
-
-    private IEnumerator DelayedReset()
-    {
-        yield return new WaitForSeconds(Manager.manager.ResetDelay);
-
-        Manager.manager.RestartLevel1();
-    }
-
+    
     private void OnCollisionEnter(Collision collision)
     {
-        // First contact
+        // First contact //is a pretty good movie. 
         if(isInitialized)
         {
             isInitialized = false;
@@ -104,18 +75,9 @@ public class Ball : MonoBehaviour {
 
         if(collision.collider.tag == "Terrain")
         {
+            Manager.manager.AddScore(1 - shooterType);
             // Ball is out of bounds by a hole, the shooter loses
-            foreach (GameObject player in Manager.manager.PlayerObjects)
-            {
-                PlayerMechanics playerMech = player.GetComponent<PlayerMechanics>();
-
-                if (playerMech.PlayerType == shooterType)
-                    continue;
-
-                Debug.Log(playerMech.PlayerType + " won the game!");
-
-                FinishMatch(playerMech.PlayerType);
-            }
+            
         }
     }
 
