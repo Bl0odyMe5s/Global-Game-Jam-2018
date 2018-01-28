@@ -159,8 +159,11 @@ public class PlayerMechanics : MonoBehaviour {
             soundWave.transform.position = player.transform.position;
             currentCharge = 0;
 
-            // Set color of the ball's base color to the player's color
             Manager.manager.Ball.GetComponent<Ball>().Shooter = id;
+            // Set color of the ball's base color to the player's color
+            
+            // Shake screen (why am I commenting)
+            camera.GetComponent<CameraFollower>().Shake(0.5f);
         }
     }
 

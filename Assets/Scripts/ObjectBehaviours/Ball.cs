@@ -10,18 +10,24 @@ public class Ball : MonoBehaviour {
 
 	private float playerY = 0;
     private bool isInitialized = true;
+    private float timeLastTouch;
 
     private Rigidbody rigidBody;
     private bool reachedTop;
     private int shooterType;
+    private ScoreBoardManager scoreBoard;
 
     private GameObject mapObjectRef;
+    [SerializeField] private GameObject _explodingBall;
+    
+    public MeshRenderer Renderer { get; set; }
 
 	// Use this for initialization
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
         Manager.manager.BallScript = GetComponent<Ball>();
+        scoreBoard = FindObjectOfType<ScoreBoardManager>();
     }
 
 
@@ -31,17 +37,9 @@ public class Ball : MonoBehaviour {
         mapObjectRef = GameObject.Find("map");
 
         rigidBody.AddForce (Vector3.down * startForce, ForceMode.Impulse);
-	}
-    
-    public Rigidbody RigidBody
-    {
-        get { return rigidBody; }
-    }
 
-    public float PlayerY
-    {
-        set { playerY = value; }
-    }
+	    Renderer = GetComponent<MeshRenderer>();
+	}
 
 	private void FixedUpdate()
 	{
@@ -50,6 +48,9 @@ public class Ball : MonoBehaviour {
         if (!isInitialized && transform.position.y >= maxY) {
             reachedTop = true;
 		}
+	    
+	    // When ball doesnt get touched for set amount of seconds the round will end and give a point to the the opposite player
+	    //if (timeLastTouch != 0 && Time.timeSinceLevelLoad - timeLastTouch > Manager.manager.SecondsUntilRoundStop) FinishMatch(shooterType == 0 ? 1 : 0);
 
         // Calculate trajectory between ball and map
         Vector2 trajectory = new Vector2(mapObjectRef.transform.position.x, mapObjectRef.transform.position.z) - new Vector2(transform.position.x, transform.position.z);
@@ -63,7 +64,14 @@ public class Ball : MonoBehaviour {
 
     
 
-    
+    private void Explode()
+    {
+        var explodingBall = Instantiate(_explodingBall);
+        explodingBall.transform.position = transform.position;
+
+        Renderer.enabled = false;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         // First contact //is a pretty good movie. 
@@ -79,6 +87,11 @@ public class Ball : MonoBehaviour {
             // Ball is out of bounds by a hole, the shooter loses
             
         }
+    public Rigidbody RigidBody
+    {
+        get { return rigidBody; }
+    }
+
     }
 
     public int Shooter
@@ -91,11 +104,17 @@ public class Ball : MonoBehaviour {
             {
                 case PlayerMechanics.PLAYER_ONE:
                     baseMaterial.color = Color.red;
+                    scoreBoard.TimerPanel.color = scoreBoard.PlayerColors[0];
                     break;
                 case PlayerMechanics.PLAYER_TWO:
                     baseMaterial.color = Color.blue;
+                    scoreBoard.TimerPanel.color = scoreBoard.PlayerColors[1];
                     break;
             }
+            
+            // Set time not touched time
+            timeLastTouch = Time.timeSinceLevelLoad;
+            scoreBoard.TimerValue = Manager.manager.SecondsUntilRoundStop;
 
             shooterType = value;
         }

@@ -130,9 +130,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0e73f4ab1d2ee74f9edf11be906ca55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: 0.8
-  startForce: 20
+  gravity: 1.6
+  startForce: 6
   playerYMargin: 0
+  _explodingBall: {fileID: 1372588804943470, guid: fcc13dbd4e3a6ec47bb314b07d7a9ec2,
+    type: 2}
 --- !u!135 &135647225859177302
 SphereCollider:
   m_ObjectHideFlags: 1

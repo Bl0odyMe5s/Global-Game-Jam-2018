@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43873546, g: 0.4868914, b: 0.5671573, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731725, g: 0.13414745, b: 0.12107873, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -144,6 +144,7 @@ MonoBehaviour:
   player: {fileID: 1623837674322690, guid: e316f07be85bb984298045e200d1697c, type: 2}
   soundWave: {fileID: 1515158613417732, guid: 05adcd7170378e94eab7eeae7d5f7d96, type: 2}
   resetDelay: 3
+  secondsUntilRoundStop: 10
   spawnPoints: []
   keyCodes: 610000006400000077000000140100001301000012010000
   playerScores: 
