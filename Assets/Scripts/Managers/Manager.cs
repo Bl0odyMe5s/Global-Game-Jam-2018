@@ -61,6 +61,8 @@ public class Manager : MonoBehaviour
 
         GameObject player1 = GameObject.Instantiate(player);
         GameObject player2 = GameObject.Instantiate(player);
+        player1.GetComponent<PlayerMechanics>().PlayerType = PlayerMechanics.PLAYER_ONE;
+        player2.GetComponent<PlayerMechanics>().PlayerType = PlayerMechanics.PLAYER_TWO;
         if (newState == GameStates.Introduction)
         {
             player2.GetComponent<PlayerMechanics>().camera.GetComponent<CameraFollower>().enabled = false;
